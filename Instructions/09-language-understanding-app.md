@@ -38,7 +38,7 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
 言語理解のオーサリングおよび予測リソースをまだ持っていない場合：
 
-1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択して、「*language understanding*」を検索し、次の設定を使用して **Language Understanding(classic)** リソースを作成します。
 
     *Language Understanding (Azure Cognitive Services) では<u>なく</u>、**Language Understanding** を選択していることを確認してください*

@@ -35,7 +35,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 
 ### <a name="create-an-azure-cognitive-search-resource"></a>Azure Cognitive Search リソースを作成する
 
-1. Web ブラウザーで Azure portal (`https://portal.azure.com`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. Web ブラウザーで Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*search* を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
     - **リソース グループ**: *新しいリソース グループを作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使ってください)*

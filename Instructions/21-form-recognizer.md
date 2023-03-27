@@ -25,7 +25,7 @@ lab:
 
 Form Recognizer サービスを使用するには、Azure サブスクリプションに Form Recognizer または Cognitive Services リソースが必要です。 Azure portal を使用してリソースを作成します。
 
-1.  Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1.  Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Form Recognizer* を検索して、次の設定で **Form Recognizer** リソースを作成します。
     - **[サブスクリプション]**:*ご自身の Azure サブスクリプション*

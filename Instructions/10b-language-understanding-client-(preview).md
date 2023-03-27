@@ -26,7 +26,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 言語サービス リソースを Azure サブスクリプションで既に作成した場合は、この演習で使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
-1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 
 2. **[&#65291;リソースの作成]** ボタンを選択して、*言語サービス* を検索し、次の設定を使用して**言語サービス** リソースを作成します。
 
