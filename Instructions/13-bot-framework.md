@@ -108,11 +108,11 @@ python app.py
     
 ボットが起動したら、ボットが実行されているエンドポイントが表示されていることに注意してください。 これは **http://localhost:3978** のようになります。
 
-2. Bot Framework Emulator を起動し、次のように **/api/messages** パスを追加し、エンドポイントを指定してボットを開きます。
+2. Bot Framework Emulator を起動し、**Open Bot**ボタンをクリックし、次のように **/api/messages** パスを追加し、**Connect**ボタンをクリックします。
 
     `http://localhost:3978/api/messages`
 
-3. 会話が **[ライブ チャット]** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
+3. 会話が **Live Chat** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
 4. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これにより、入力したメッセージがエコー バックされます。
 5. Bot Framework Emulator を閉じて Visual Studio Code に戻り、ターミナル ウィンドウで **CTRL + C** を入力してボットを停止します。
 
@@ -190,7 +190,7 @@ python app.py
 
     `http://localhost:3978/api/messages`
 
-6. 会話が **[ライブ チャット]** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
+6. 会話が **Live Chat** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
 7. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これは、*Ask me what the time is* \(何時か尋ねてください\) である必要があります。
 8. 「*What is the time?*」\(何時ですか?\) と入力し、応答を表示します。
 
