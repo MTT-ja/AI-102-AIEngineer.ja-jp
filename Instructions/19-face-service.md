@@ -27,9 +27,9 @@ lab:
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
-    - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
-    - **[リージョン]**: 使用できるリージョンを選択します**
+    - **[サブスクリプション]**: *ご自身の Azure サブスクリプション*
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* 
+    - **[リージョン]**: *使用できるリージョンを選択します*
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
@@ -48,13 +48,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
+    dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 7.0.0
     ```
 
     **Python**
 
     ```
-    pip install azure-cognitiveservices-vision-computervision==0.7.0
+    pip install azure-cognitiveservices-vision-computervision==0.9.0
     ```
     
 3. **computer-vision** フォルダーの内容を表示し、構成設定用のファイルが含まれていることを確認してください。
@@ -87,7 +87,7 @@ lab:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-## <a name="view-the-image-you-will-analyze"></a>ビューの画像は、あなたが分析します
+## <a name="view-the-image-you-will-analyze"></a>分析する画像の確認
 
 この演習では、Computer Vision サービスを使用して、人の画像を分析します。
 
@@ -121,7 +121,7 @@ lab:
 
 2. **Main** 関数の、追加したコードの下で、コードが画像ファイルへのパスを指定し、**AnalyzeFaces** という名前の関数に画像パスを渡していることを確認してください。 この関数はまだ完全には実装されていません。
 
-3. **AnalyzeFaces** 関数で、コメント "**取得する機能を指定する (顔)**" の下に、次のコードを追加します。
+3. **AnalyzeFaces** 関数で、コメント **Specify features to be retrieved (faces)** の下に、次のコードを追加します。
 
     **C#**
 
@@ -140,7 +140,7 @@ lab:
     features = [VisualFeatureTypes.faces]
     ```
 
-4. **AnalyzeFaces** 関数で、コメント "**画像分析を取得する**" の下に、次のコードを追加します。
+4. **AnalyzeFaces** 関数で、コメント **Get image analysis** の下に、次のコードを追加します。
 
 **C#**
 
@@ -281,7 +281,7 @@ with open(image_file, mode="rb") as image_data:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-7. **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、コメント "**Face クライアントを認証する**" を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します。
+7. **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、コメント "**Authenticate Face client**" を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します。
 
     **C#**
 
@@ -309,7 +309,7 @@ with open(image_file, mode="rb") as image_data:
 Face サービスの最も基本的な機能の 1 つは、画像内の顔を検出し、頭部姿勢、ぼやけ、眼鏡の存在などの属性を決定することです。
 
 1. アプリケーションのコード ファイルの **Main** 関数で、ユーザーがメニュー オプション **1** を選択した場合に実行されるコードを調べます。 このコードは **DetectFaces** 関数を呼び出し、パスを画像ファイルに渡します。
-2. コード ファイルで **DetectFaces** 関数を見つけて、コメント "**取得する顔機能を指定する**" の下に、次のコードを追加します。
+2. コード ファイルで **DetectFaces** 関数を見つけて、コメント "**Specify facial features to be retrieved**" の下に、次のコードを追加します。
 
     **C#**
 
@@ -332,7 +332,7 @@ Face サービスの最も基本的な機能の 1 つは、画像内の顔を検
                 FaceAttributeType.glasses]
     ```
 
-3. **DetectFaces** 関数に追加したコードの下で、コメント "**顔を取得する**" を見つけて、次のコードを追加します。
+3. **DetectFaces** 関数に追加したコードの下で、コメント "**Get faces**" を見つけて、次のコードを追加します。
 
 **C#**
 
