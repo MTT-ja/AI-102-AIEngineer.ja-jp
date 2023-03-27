@@ -48,13 +48,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech
     ```
 
 3. **translator** フォルダーの内容を表示します。また、構成設定用のファイルが含まれていることに注意してください。
@@ -183,7 +183,7 @@ lab:
 
 3. 下の「**プログラムを実行する**」セクションにスキップします。
 
-### <a name="alternatively-use-audio-input-from-a-file"></a>または、ファイルからの温泉入力を使用します
+### <a name="alternatively-use-audio-input-from-a-file"></a>または、ファイルからの音声入力を使用します
 
 1. ターミナル ウィンドウで、次のコマンドを入力して、音声ファイルの再生に使用できるライブラリをインストールします。
 
