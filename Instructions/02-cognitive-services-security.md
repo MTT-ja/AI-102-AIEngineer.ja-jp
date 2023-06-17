@@ -4,13 +4,13 @@ lab:
   module: Module 2 - Developing AI Apps with Cognitive Services
 ---
 
-# <a name="manage-cognitive-services-security"></a>Cognitive Services セキュリティの管理
+# Cognitive Services セキュリティの管理
 
 セキュリティはどのアプリケーションにとっても重要な考慮事項であり、開発者は、Cognitive Services などのリソースへのアクセスがそれを必要とする人だけに制限されていることを確認する必要があります。
 
 Cognitive Services へのアクセスは通常、認証キーを介して制御されます。認証キーは、Cognitive Services リソースを最初に作成したときに生成されます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボの作業をしている環境に既にクローンしている場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐクローンしてください。
 
@@ -21,21 +21,21 @@ Cognitive Services へのアクセスは通常、認証キーを介して制御�
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
+## Cognitive Services リソースをプロビジョニングする
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 
-## <a name="manage-authentication-keys"></a>認証キーの管理
+## 認証キーの管理
 
 Cognitive Services リソースを作成すると、2 つの認証キーが生成されました。 これらは、Azure portal で、または Azure コマンド ライン インターフェイス (CLI) を使用して管理できます。
 
@@ -102,11 +102,11 @@ Cognitive Services リソースのキーのリストが返されます。**key1*
 
 > **ヒント**: この演習では、 **--resource-group** などの Azure CLI パラメーターのフルネームを使用しました。  **-g** などの短い代替手段を使用して、コマンドの冗長性を低くすることもできます (ただし、理解が少し難しくなります)。  [Cognitive Services CLI コマンド リファレンス](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)には、各 Cognitive Services CLI コマンドのパラメーター オプションがリストされています。
 
-## <a name="secure-key-access-with-azure-key-vault"></a>Azure Key Vault を使用した安全なキー アクセス
+## Azure Key Vault を使用した安全なキー アクセス
 
 認証にキーを使用することで、Cognitive Services を利用するアプリケーションを開発できます。 ただし、これは、アプリケーションコードがキーを取得できる必要があることを意味します。 1 つのオプションは、アプリケーションがデプロイされている環境変数または構成ファイルにキーを格納することですが、このアプローチでは、キーが不正アクセスに対して脆弱なままになります。 Azure でアプリケーションを開発する場合のより良いアプローチは、キーを Azure Key Vault に安全に保存し、*マネージド ID* (つまり、アプリケーション自体が使用するユーザー アカウント) を介してキーへのアクセスを提供することです。
 
-### <a name="create-a-key-vault-and-add-a-secret"></a>Key Vault を作成してシークレットを追加する
+### Key Vault を作成してシークレットを追加する
 
 最初に、Key Vault を作成して Cognitive Services キーの *シークレット* を追加する必要があります。
 
@@ -118,13 +118,13 @@ Cognitive Services リソースのキーのリストが返されます。**key1*
     - **リージョン**: *Cognitive Services リソースと同じリージョン*
     - **価格レベル**: Standard
 3. デプロイが完了するのを待ってから、Key Vault リソースに移動します。
-4. 左側のナビゲーション ウィンドウで、**[シークレット]** ([設定] セクション内) を選択します。
+4. 左側のナビゲーション ウィンドウで、 **[シークレット]** ([オブジェクト] セクションにあります) を選択します。
 5. **[+生成/インポート]** を選択し、次の設定で新しいシークレットを追加します。
     - **アップロード オプション**: 手動
     - **名前**: Cognitive-Services-Key *(後でこの名前に基づいてシークレットを取得するコードを実行するため、これを正確に一致させることが重要です)*
     - **値**: ***key1** Cognitive Services キー"*
 
-### <a name="create-a-service-principal"></a>サービス プリンシパルの作成
+### サービス プリンシパルの作成
 
 Key Vault 内のシークレットにアクセスするには、アプリケーションはシークレットにアクセスできるサービス プリンシパルを使用する必要があります。 Azure コマンド ライン インターフェイス (CLI) を使用して、サービス プリンシパルを作成し、そのオブジェクト ID を検索し、Azure Vault のシークレットへのアクセスを許可します。
 
@@ -150,7 +150,7 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
 
 **appId**、**password**、**tenant** の値を記録しておきます。後で必要になります (このターミナルを閉じると、パスワードを取得できなくなります。したがって、ここで値をメモすることが重要です。出力を Visual Studio Code の新しいテキスト ファイルに貼り付けて、後で必要な値を確実に見つけられるようにすることができます。)
 
-2. サービス プリンシパルの**オブジェクト ID** を取得するには、次の Azure CLI コマンドを実行し、 *&lt;appId&gt;* をお使いのサービス プリンシパルのアプリ ID の値に置き換えます。
+2. サービス プリンシパルの**オブジェクト ID** を取得するには、次の Azure CLI コマンドを実行し、 *&lt;appId&gt;* をお使いのサービス プリンシパルのアプリ ID の値に置き換えます。 次のコマンドを実行しても応答がない場合は、別のバージョンの Azure CLI を使用している可能性があります。その場合は、`objectId` を `id` に置き換えてください。
 
     ```
     az ad sp show --id <appId> --query objectId --out tsv
@@ -162,7 +162,7 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
     az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
     ```
 
-### <a name="use-the-service-principal-in-an-application"></a>アプリケーションでサービス プリンシパルを使用する
+### アプリケーションでサービス プリンシパルを使用する
 
 これで、アプリケーションでサービス プリンシパル ID を使用する準備が整い、Key Vault にシークレット Cognitive Services キーを入力し、それを使用して Cognitive Services リソースに接続します。
 
@@ -226,6 +226,6 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
 6. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。 たとえば、「Hello」、「Bonjour」、「Gracias」と入力してみてください。
 7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Cognitive Services のセキュリティ保護の詳細については、[Cognitive Services のセキュリティ ドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-security)を参照してください。

@@ -4,7 +4,7 @@ lab:
   module: Module 4 - Building Speech-Enabled Applications
 ---
 
-# <a name="recognize-and-synthesize-speech"></a>音声の認識と合成
+# 音声の認識と合成
 
 **Speech** サービスは、次のような音声関連機能を提供する Azure Cognitive Services です。
 
@@ -15,7 +15,7 @@ lab:
 
 **注**:この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。 最良のエクスペリエンスのため、マイクも必要です。 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。 マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
@@ -26,14 +26,14 @@ lab:
 
     **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
+## Cognitive Services リソースをプロビジョニングする
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
@@ -41,11 +41,11 @@ lab:
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページからサービスがプロビジョニングされるキーと場所の 1 つが必要になります。
 
-## <a name="prepare-to-use-the-speech-service"></a>Speech サービスを使用する準備をする
+## Speech サービスを使用する準備をする
 
 この演習では、Speech SDK を使用して音声を認識および合成する、部分的に実装されたクライアント アプリケーションを完成させます。
 
-**注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
+**注**:**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**07-speech** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **speaking-clock** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Speech SDK パッケージをインストールします。
@@ -53,13 +53,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.28.0
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech==1.28.0
     ```
 
 3. **speaking-clock** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
@@ -126,11 +126,11 @@ lab:
 
 7. C# を使用している場合は、非同期メソッドで **await** 演算子を使用することに関する警告を無視できます。これは後で修正します。 コードは、アプリケーションが使用する音声サービスリソースの領域を表示する必要があります。
 
-## <a name="recognize-speech"></a>音声を認識する
+## 音声を認識する
 
 Cognitive Services リソースに音声サービス用の **SpeechConfig** ができたので、**Speech-to-text** API を使用して音声を認識し、テキストに転写することができます。
 
-### <a name="if-you-have-a-working-microphone"></a>マイクが機能する場合
+### マイクが機能する場合
 
 1. プログラムの **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。
 2. **TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
@@ -155,7 +155,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 
 3. 以下の「**コードを追加して書き起こしたマンドを処理する**」のセクションにスキップします。
 
-### <a name="alternatively-use-audio-input-from-a-file"></a>または、ファイルからの温泉入力を使用します
+### または、ファイルからの音声入力を使用します
 
 1. ターミナル ウィンドウで、次のコマンドを入力して、音声ファイルの再生に使用できるライブラリをインストールします。
 
@@ -208,7 +208,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     ```
 
-### <a name="add-code-to-process-the-transcribed-command"></a>コードを追加して書き起こしたコマンドを処理する
+### コードを追加して書き起こしたコマンドを処理する
 
 1. **TranscribeCommand** 関数のコメント **「Process speech input」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください。
 
@@ -270,7 +270,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 
     SpeechRecognizer でエラーが発生した場合は、"Cancelled" の結果が生成されます。 アプリケーションのコードは、エラーメッセージを表示します。 最も可能性の高い原因は、構成ファイルのキーまたはリージョンが正しくないことです。
 
-## <a name="synthesize-speech"></a>音声を合成する
+## 音声を合成する
 
 speaking clock アプリケーションは話し言葉の入力を受け入れますが、実際には話しません。 音声合成用のコードを追加して修正しましょう。
 
@@ -331,9 +331,9 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     python speaking-clock.py
     ```
 
-5. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムが時間を教えくれるはずです。
+5. プロンプトが表示されたら、マイクに向かってはっきりと話し、"what time is it?" と言います。 プログラムが時間を教えくれるはずです。
 
-## <a name="use-a-different-voice"></a>別の音声を使用する
+## 別の音声を使用する
 
 speaking clock アプリケーションは、変更可能なデフォルトの音声を使用します。 Speech サービスは、さまざまな*標準*音声だけでなく、より人間らしい*ニューラル*音声もサポートします。 *カスタム* ボイスを作成することもできます。
 
@@ -373,7 +373,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムは指定された声で話し、時間を伝えます。
 
-## <a name="use-speech-synthesis-markup-language"></a>音声合成マークアップ言語を使用する
+## 音声合成マークアップ言語を使用する
 
 音声合成アップ言語 (SSML) を使用すると、XML ベースの形式を使用して音声を合成する方法をカスタマイズできます。
 
@@ -431,6 +431,6 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムは、SSML で指定された音声 (SpeechConfig で指定された音声を上書き) で話し、時間を通知し、一時停止した後、このラボを終了する時間であることを通知する必要があります。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 **Speech-to-text** および **Text-to-speech** API の使用の詳細については、[Speech-to-text ドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-to-text)および [Text-to-speech ドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-text-to-speech)を参照してください。

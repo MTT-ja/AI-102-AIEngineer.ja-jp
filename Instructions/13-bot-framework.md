@@ -4,39 +4,24 @@ lab:
   module: Module 7 - Conversational AI and the Azure Bot Service
 ---
 
-# <a name="create-a-bot-with-the-bot-framework-sdk"></a>Bot Framework SDK を使用したボットの作成
+# Bot Framework SDK を使用したボットの作成
 
 *ボット*は、人間のユーザーとの会話型ダイアログに参加できるソフトウェア エージェントです。 Microsoft Bot Framework は、Azure Bot Service を介してクラウド サービスとして提供できるボットを構築するための包括的なプラットフォームを提供します。
 
 この演習では、Microsoft Bot Framework SDK を使用して、ボットを作成およびデプロイします。
 
-## <a name="before-you-start"></a>開始する前に
-
-初めに、ボット開発のための環境を準備しましょう。
-
-### <a name="update-the-bot-framework-emulator"></a>Bot Framework Emulator を更新する
-
-Bot Framework SDK を使用してボットを作成し、Bot Framework Emulator を使用してボットをテストします。 Bot Framework Emulator は定期的に更新されるため、最新バージョンがインストールされていることを確認しましょう。
-
-> **注**: 更新には、この演習の手順に影響を与えるユーザー インターフェイスの変更が含まれる場合があります。
-
-1. **Bot Framework Emulator** を起動し、アップデートのインストールを求めるメッセージが表示された場合は、現在ログインしているユーザーに対してインストールしてください。 自動的にプロンプトが表示されない場合は、**[ヘルプ]** メニューの **[更新を確認する]** オプションを使用して、更新をご確認ください。
-2. アップデートをインストールした後、次に必要になるまで Bot FrameworkEmulator を閉じます。
-
-> **重要**: 更新プログラムのダウンロードは失敗することがあります。これについては調査中です。 更新を試みてから数分以内に進行しない場合は、ダウンロードを閉じて、現在インストールされているバージョンのエミュレーターを使用できます。
-
-### <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
+2. パレットを開き (Shift + Ctrl + P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーにクローンします (どのフォルダーでも構いません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-a-bot"></a>ボットの作成
+## ボットの作成
 
 Bot Framework SDK を使用して、テンプレートに基づいてボットを作成し、特定の要件を満たすようにコードをカスタマイズできます。
 
@@ -71,13 +56,21 @@ pip install cookiecutter==1.7.0
 dotnet new echobot -n TimeBot
 ```
 
+**C-Sharp** を使用している場合は、次のコマンドを使用してプロジェクト ファイルを開きます。 
+
+```Code
+code TimeBot\TimeBot.csproj
+```
+
+行 4 で、*TargetFramework* の値を `netcoreapp3.1` に変更します。
+
 **Python**
 
 ```Python
 cookiecutter https://github.com/microsoft/botbuilder-python/releases/download/Templates/echo.zip
 ```
 
-Python を使用している場合、cookiecutter のプロンプトが表示されたら、次の詳細を入力します
+**Python** を使用している場合は、cookiecutter のプロンプトが表示されたら、次の詳細を入力します。
 - **bot_name**: TimeBot
 - **bot_description**: 私たちの時代のボット
     
@@ -88,7 +81,7 @@ Python を使用している場合、cookiecutter のプロンプトが表示さ
     dir
     ```
 
-## <a name="test-the-bot-in-the-bot-framework-emulator"></a>Bot Framework Emulator でボットをテストします
+## Bot Framework Emulator でボットをテストします
 
 *EchoBot* テンプレートに基づいてボットを作成しました。 これで、ローカルで実行し、Bot Framework Emulator (システムにインストールする必要があります) を使用してテストできます。
 
@@ -108,15 +101,17 @@ python app.py
     
 ボットが起動したら、ボットが実行されているエンドポイントが表示されていることに注意してください。 これは **http://localhost:3978** のようになります。
 
-2. Bot Framework Emulator を起動し、次のように **/api/messages** パスを追加し、エンドポイントを指定してボットを開きます。
+2. **Bot Framework Emulator** アプリケーションを起動します (デスクトップからアプリへのクイック アクセスを使用できます)。更新プログラムをインストールするように求められたら、 **[キャンセル]** を選択します。
+
+3. **[ボットを開く]** ボタンをクリックし、次のように **/api/messages** パスを **"ボットの URL"** フィールドに追加してエンドポイントを入力して指定したら、ボットを開き、 **[接続]** をクリックします。
 
     `http://localhost:3978/api/messages`
+    
+4. 会話が **Live chat**ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
+5. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これにより、入力したメッセージがエコー バックされます。
+6. Bot Framework Emulator を閉じて Visual Studio Code に戻り、ターミナル ウィンドウで **CTRL + C** を入力してボットを停止します。
 
-3. 会話が **[ライブ チャット]** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
-4. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これにより、入力したメッセージがエコー バックされます。
-5. Bot Framework Emulator を閉じて Visual Studio Code に戻り、ターミナル ウィンドウで **CTRL + C** を入力してボットを停止します。
-
-## <a name="modify-the-bot-code"></a>ボット コードの変更
+## ボット コードの変更
 
 ユーザーの入力をエコー バックするボットを作成しました。 これは特に有用ではありませんが、会話ダイアログの基本的な流れを説明するのに役立ちます。 ボットとの会話は、テキスト、グラフィック、またはユーザーインターフェイス "*カード*" を使用して情報を交換する一連の "*アクティビティ*" で構成されます。 ボットはあいさつから会話を開始します。これは、ユーザーがボットとのチャット セッションを初期化するときにトリガーされる *会話更新* アクティビティの結果です。 その後、会話は、ユーザーとボットが交互に *メッセージ* を送信する一連のアクティビティで構成されます。
 
@@ -186,18 +181,18 @@ python app.py
 
 前のように、ボットを開始するには、それが動作しているエンドポイントが示されていることに注意してください。
 
-5. Bot Framework Emulator を起動し、次のように **/api/messages** パスを追加し、エンドポイントを指定してボットを開きます。
+5. Bot Framework Emulator を起動し (更新プログラムを求められたらキャンセルします)、次のように **/api/messages** パスを追加し、エンドポイントを指定して、ボットを開きます。
 
     `http://localhost:3978/api/messages`
 
 6. 会話が **[ライブ チャット]** ペインで開かれた後、「*Hello and welcome!*」というメッセージを待ちます。
-7. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これは、*Ask me what the time is* \(何時か尋ねてください\) である必要があります。
-8. 「*What is the time?*」\(何時ですか?\) と入力し、応答を表示します。
+7. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これは、*Ask me what the time is* (何時か尋ねてください) である必要があります。
+8. 「*What is the time?*」(何時ですか?) と入力し、応答を表示します。
 
     これで、ボットは実行されているローカル時刻を表示して、"What is the time?"  というクエリに応答します。 その他のクエリの場合は、ユーザーに時刻を尋ねるように求めます。 これは非常に限定されたボットであり、言語理解サービスと追加のカスタムコードとの統合によって改善される可能性がありますが、テンプレートから作成されたボットを拡張することで Bot Framework SDK を使用してソリューションを構築する方法の実用的な例として機能します。
 
 9. Bot Framework Emulator を閉じて Visual Studio Code に戻り、ターミナル ウィンドウで **CTRL + C** を入力してボットを停止します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Bot Framework の詳細については、[Bot Framework のドキュメント](https://docs.microsoft.com/azure/bot-service/index-bf-sdk)を参照してください。

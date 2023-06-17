@@ -1,14 +1,14 @@
 ---
 lab:
-  title: Conversational Language Understanding クライアント アプリケーションを作成する (プレビュー)
+  title: Conversational Language Understanding クライアント アプリケーションを作成する
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="create-a-language-service-client-application"></a>言語サービス クライアント アプリケーションを作成する
+# 言語サービス クライアント アプリケーションを作成する
 
 Azure Cognitive Service for Language モデルの Conversational Language Understanding 機能を使うと、"会話言語" モデルを定義することができます。これをクライアント アプリから使って、ユーザーからの自然言語入力を解釈し、ユーザーの *"意図"* (達成したいこと) を予測し、その意図を適用する必要がある *"エンティティ"* を特定することができます。 会話言語理解モデルを使用するクライアント アプリケーションは、REST インターフェイスを介して直接作成するか、言語固有のソフトウェア開発キット (SDK) を使用して作成できます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボの作業をしている環境に既にクローンしている場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐクローンしてください。
 
@@ -22,7 +22,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-language-service-resources"></a>言語サービス リソースを作成する
+## 言語サービス リソースを作成する
 
 言語サービス リソースを Azure サブスクリプションで既に作成した場合は、この演習で使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
@@ -42,7 +42,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 3. リソースが作成されるまで待ちます。 リソースを作成したリソース グループに移動すると、リソースを表示できます。
 
-## <a name="import-train-and-publish-a-conversational-language-understanding-model"></a>会話言語理解モデルをインポート、トレーニング、発行する
+## 会話言語理解モデルをインポート、トレーニング、発行する
 
 前のラボまたは演習の **Clock** プロジェクトを既にお持ちの場合は、この演習で使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
@@ -52,25 +52,29 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 3. **[Conversational Language Understanding]** ページを開きます。
 
-3. **[&#65291;新しいプロジェクトの作成]** の横にあるドロップダウン リストを表示し、 **[インポート]** を選択します。 **[ファイルの選択]** をクリックし、この演習のラボ ファイルを含むプロジェクト フォルダーの **10b-clu-client-(preview)** サブフォルダーを参照します。 **Clock.json** を選択し、 **[開く]** をクリックして、 **[完了]** をクリックします。
+4. **[&#65291;新しいプロジェクトの作成]** の横にあるドロップダウン リストを表示し、 **[インポート]** を選択します。 **[ファイルの選択]** をクリックし、この演習のラボ ファイルを含むプロジェクト フォルダーの **10b-clu-client-(preview)** サブフォルダーを参照します。 **Clock.json** を選択し、 **[開く]** をクリックして、 **[完了]** をクリックします。
 
-4. 効果的な言語サービス アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
+5. 効果的な言語サービス アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
 
-5. Language Studio ポータルの左側にある **[モデルのトレーニング]** を選択して、アプリをトレーニングします。 **[トレーニング ジョブの開始]** をクリックし、モデルに **Clock** という名前を付け、トレーニングについての評価が有効になっていることを確認します。 トレーニングが完了するまでに数分かかる場合があります。
+6. Language Studio ポータルの左側にある **[トレーニング ジョブ]** を選択して、アプリをトレーニングします。 **[トレーニング ジョブの開始]** をクリックし、モデルに **Clock** という名前を付け、トレーニングについての評価が有効になっていることを確認します。 トレーニングが完了するまでに数分かかる場合があります。
 
     > **注**:モデル名 **Clock** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
-6. Language Studio ポータルの左側にある **[モデルのデプロイ]** を選択し、 **[デプロイの追加]** を使用して、**production** という名前の Clock モデルのデプロイを作成します。
+7. Language Studio ポータルの左側にある **[モデルのデプロイ]** を選択し、 **[デプロイの追加]** を使用して、**production** という名前の Clock モデルのデプロイを作成します。
 
     > **注**:デプロイ名 **production** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
-7. デプロイが完了したら、**production** デプロイを選択し、 **[予測 URL の取得]** をクリックします。 クライアント アプリケーションでは、デプロイされたモデルを使用するためのエンドポイント URL が必要です。
+8. クライアント アプリケーションでは、デプロイされたモデルを使用するために、**エンドポイント URL** と**主キー**が必要です。 デプロイが完了したら、これらのパラメーターを取得するために、[https://portal.azure.com](https://portal.azure.com/?azure-portal=true) で Azure portal を開き、Azure サブスクリプションに関連付けられた Microsoft アカウントを使用してサインインします。 検索バーで、「**Language**」と検索して選択し、*Cognitive Services|Language サービス*を選択します。
 
-8. Language Studio ポータルの左側で、 **[プロジェクトの設定]** を選択し、 **[主キー]** をメモします。 クライアント アプリケーションでは、デプロイされたモデルを使用するための主キーが必要です。
+9. 言語サービス リソースが一覧表示されるので、そのリソースを選択します。
 
-9. クライアント アプリケーションでは、デプロイされたモデルに接続して認証するために、予測 URL と言語サービス キーからの情報が必要です。
+10. 左側のメニューの *[リソース管理]* セクションで、 **[キーとエンドポイント]** を選択します。
 
-## <a name="prepare-to-use-the-language-service-sdk"></a>Language service SDK を使用する準備をする
+11. **KEY 1** と**エンドポイント**のコピーを作成します。
+
+12. クライアント アプリケーションでは、デプロイされたモデルに接続して認証するために、予測 URL エンドポイントと言語サービス キーからの情報が必要です。
+
+## Language service SDK を使用する準備をする
 
 この演習では、Clock モデル (公開済みの Conversational Language Understanding モデル) を使用してユーザー入力から意図を予測し、適切に応答する、部分的に実装されたクライアント アプリケーションを完成させます。
 
@@ -78,7 +82,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**10b-clu-client-(preview)** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 
-2. **clock-client** フォルダーを右クリックして、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。 次に、言語設定に適したコマンドを実行して、Conversational Language Service SDK パッケージをインストールします
+2. **clock-client** フォルダーを右クリックして、 **[Open in Integrated Terminal](統合ターミナルで開く)** を選択します。 次に、言語設定に適したコマンドを実行して、Conversational Language Service SDK パッケージをインストールします
 
     **C#**
 
@@ -102,7 +106,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     構成ファイルを開き、含まれている構成値を更新して、ご自分の言語リソースの**エンドポイント URL** と**主キー**を反映します。 必要な値は、Azure portal または Language Studio で次のように見つけることができます。
 
     - Azure  portal:言語リソースを開きます。 **[リソース管理]** の下の **[キーとエンドポイント]** を選択します。 **KEY 1** と**エンドポイント**の値を構成設定ファイルにコピーします。
-    - Language Studio:**Clock** プロジェクトを開きます。 言語サービス エンドポイントは、 **[予測 URL の取得]** の **[モデルのデプロイ]** ページで確認でき、**主キー**は **[プロジェクトの設定]** ページにあります。 予測 URL の言語サービス エンドポイント部分は、 **.cognitiveservices.azure.com/** で終わります。 (例: `https://ai102-langserv.cognitiveservices.azure.com/`)。
+    - Language Studio:**Clock** プロジェクトを開きます。 言語サービス エンドポイントは、 **[予測 URL の取得]** の **[モデルのデプロイ]** ページで確認でき、**主キー**は **[プロジェクトの設定]** ページで確認できます。 予測 URL の言語サービス エンドポイント部分は、 **.cognitiveservices.azure.com/** で終わります。 (例: `https://ai102-langserv.cognitiveservices.azure.com/`)。
 
 4. **clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
@@ -125,10 +129,9 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     # Import namespaces
     from azure.core.credentials import AzureKeyCredential
     from azure.ai.language.conversations import ConversationAnalysisClient
-    from azure.ai.language.conversations.models import ConversationAnalysisOptions
     ```
 
-## <a name="get-a-prediction-from-the-conversational-language-model"></a>会話言語モデルから予測を取得する
+## 会話言語モデルから予測を取得する
 
 これで、SDK を使用して会話言語モデルから予測を取得するコードを実装する準備が整いました。
 
@@ -152,7 +155,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
         ls_prediction_endpoint, AzureKeyCredential(ls_prediction_key))
     ```
 
-2. ユーザーが "quit" と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することにご注意ください。 このループ内で、コメント "**Call the Language service model to get intent and entities**" を見つけて、次のコードを追加します。
+2. ユーザーが「quit」と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することにご注意ください。 このループ内で、コメント "**Call the Language service model to get intent and entities**" を見つけて、次のコードを追加します。
 
     **C#**
 
@@ -182,36 +185,47 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     ```Python
     # Call the Language service model to get intent and entities
-    convInput = ConversationAnalysisOptions(
-        query = userText
-        )
-    
     cls_project = 'Clock'
     deployment_slot = 'production'
 
     with client:
-        result = client.analyze_conversations(
-            convInput, 
-            project_name=cls_project, 
-            deployment_name=deployment_slot
-            )
+        query = userText
+        result = client.analyze_conversation(
+            task={
+                "kind": "Conversation",
+                "analysisInput": {
+                    "conversationItem": {
+                        "participantId": "1",
+                        "id": "1",
+                        "modality": "text",
+                        "language": "en",
+                        "text": query
+                    },
+                    "isLoggingEnabled": False
+                },
+                "parameters": {
+                    "projectName": cls_project,
+                    "deploymentName": deployment_slot,
+                    "verbose": True
+                }
+            }
+        )
 
-    # list the prediction results
-    top_intent = result.prediction.top_intent
-    entities = result.prediction.entities
+    top_intent = result["result"]["prediction"]["topIntent"]
+    entities = result["result"]["prediction"]["entities"]
 
     print("view top intent:")
-    print("\ttop intent: {}".format(result.prediction.top_intent))
-    print("\tcategory: {}".format(result.prediction.intents[0].category))
-    print("\tconfidence score: {}\n".format(result.prediction.intents[0].confidence_score))
+    print("\ttop intent: {}".format(result["result"]["prediction"]["topIntent"]))
+    print("\tcategory: {}".format(result["result"]["prediction"]["intents"][0]["category"]))
+    print("\tconfidence score: {}\n".format(result["result"]["prediction"]["intents"][0]["confidenceScore"]))
 
     print("view entities:")
     for entity in entities:
-        print("\tcategory: {}".format(entity.category))
-        print("\ttext: {}".format(entity.text))
-        print("\tconfidence score: {}".format(entity.confidence_score))
+        print("\tcategory: {}".format(entity["category"]))
+        print("\ttext: {}".format(entity["text"]))
+        print("\tconfidence score: {}".format(entity["confidenceScore"]))
 
-    print("query: {}".format(result.query))
+    print("query: {}".format(result["result"]["query"]))
     ```
 
     言語サービス モデルを呼び出すと、予測または結果が返されます。これには、入力発話で検出されたエンティティだけでなく、最上位の (最も可能性の高い) 意図も含まれます。 クライアント アプリケーションは、その予測を使用して適切なアクションを決定および実行する必要があります。
@@ -308,9 +322,9 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
         if len(entities) > 0:
             # Check for a location entity
             for entity in entities:
-                if 'Location' == entity.category:
+                if 'Location' == entity["category"]:
                     # ML entities are strings, get the first one
-                    location = entity.text
+                    location = entity["text"]
         # Get the time for the specified location
         print(GetTime(location))
 
@@ -320,9 +334,9 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
         if len(entities) > 0:
             # Check for a Date entity
             for entity in entities:
-                if 'Date' == entity.category:
+                if 'Date' == entity["category"]:
                     # Regex entities are strings, get the first one
-                    date_string = entity.text
+                    date_string = entity["text"]
         # Get the day for the specified date
         print(GetDay(date_string))
 
@@ -332,9 +346,9 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
         if len(entities) > 0:
             # Check for a Weekday entity
             for entity in entities:
-                if 'Weekday' == entity.category:
+                if 'Weekday' == entity["category"]:
                 # List entities are lists
-                    day = entity.text
+                    day = entity["text"]
         # Get the date for the specified day
         print(GetDate(day))
 
@@ -361,17 +375,17 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     *Hello*
     
-    *今何時?*
+    *What time is it?*
 
-    *What's the time in London?* \(ロンドンの時刻は何時ですか?\)
+    *What's the time in London?* (ロンドンの時刻は何時ですか?)
 
-    *What's the date?* \(何日ですか?\)
+    *What's the date?* (何日ですか?)
 
-    *What date is Sunday?* \(日曜日は何日ですか?\)
+    *What date is Sunday?* (日曜日は何日ですか?)
 
-    *What day is it?* \(何曜日ですか?\)
+    *What day is it?* (何曜日ですか?)
 
-    *What day is 01/01/2025?* \(2025 年 1 月 1 日は何曜日ですか?\)
+    *What day is 01/01/2025?* (2025 年 1 月 1 日は何曜日ですか?)
 
 > **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限があります。 たとえば、時間を取得する場合、制限された都市のセットのみがサポートされ、夏時間は無視されます。 目標は、アプリケーションが次のことを行う必要がある言語サービスを使用するための一般的なパターンの例を確認することです。
 >
@@ -381,6 +395,6 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 6. テストが終了したら、「*quit*」と入力します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 言語サービス クライアントの作成の詳細については、[開発者向けドキュメント](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)を参照してください。

@@ -4,13 +4,13 @@ lab:
   module: Module 11 - Reading Text in Images and Documents
 ---
 
-# <a name="extract-data-from-forms"></a>Forms からのデータの抽出 
+# Forms からのデータの抽出 
 
 ある会社が現在、手動で注文シートを購入し、データベースにデータを入力することを社員に求めているとします。 会社は AI サービスを活用してデータ入力プロセスを改善したいと考えています。 あなたは、フォームを読み取り、(データベースを自動的に更新するために使用できる) 構造化データを生成する機械学習モデルを構築することに決めます。
 
 **Form Recognizer** は、ユーザーが自動データ処理ソフトウェアを構築できるようにする Cognitive Services です。 このソフトウェアは、光学式文字認識 (OCR) を使用して、フォーム ドキュメントからテキスト、キーと値のペア、およびテーブルを抽出できます。 Form Recognizer には、請求書、領収書、名刺を認識するためのモデルがあらかじめ構築されています。 このサービスは、カスタム モデルをトレーニングする機能も提供します。 この演習では、カスタム モデルの構築に焦点を当てます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
@@ -21,7 +21,7 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-a-form-recognizer-resource"></a>Form Recognizer リソースを作成する
+## Form Recognizer リソースを作成する
 
 Form Recognizer サービスを使用するには、Azure サブスクリプションに Form Recognizer または Cognitive Services リソースが必要です。 Azure portal を使用してリソースを作成します。
 
@@ -29,7 +29,7 @@ Form Recognizer サービスを使用するには、Azure サブスクリプシ�
 
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Form Recognizer* を検索して、次の設定で **Form Recognizer** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **[価格レベル]**: F0
@@ -38,7 +38,7 @@ Form Recognizer サービスを使用するには、Azure サブスクリプシ�
 
 3. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 後でコードからのアクセスを管理するには、このページの**エンドポイント**と**キー**の 1 つが必要になります。 
 
-## <a name="gather-documents-for-training"></a>トレーニング用のドキュメントを収集する
+## トレーニング用のドキュメントを収集する
 
 ![請求書の画像。](../21-custom-form/sample-forms/Form_1.jpg)  
 
@@ -101,7 +101,7 @@ setup
 
 15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。 ストレージ アカウントを開き、左側のペインで **[ストレージ ブラウザー (プレビュー)]** を選択します。 次に、ストレージ ブラウザーで、 **[BLOB コンテナー]** を展開し、**sampleforms** コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
 
-## <a name="train-a-model-using-the-form-recognizer-sdk"></a>Form Recognizer SDK を使用してモデルをトレーニングする
+## Form Recognizer SDK を使用してモデルをトレーニングする
 
 次に、 **.jpg** ファイルと **.json** ファイルを使用してモデルをトレーニングします。
 
@@ -169,7 +169,7 @@ python train-model.py
 12. 最後に、プログラムの待ち、その後、モデル出力を確認します。
 13. ターミナル出力のモデル ID を書き出します。 次のラボ パートに必要になります。 
 
-## <a name="test-your-custom-form-recognizer-model"></a>カスタム Form Recognizer モデルをテストする 
+## カスタム Form Recognizer モデルをテストする 
 
 1. **21-custom-form** フォルダーで、使用する言語のサブフォルダー (**C-Sharp** または **Python**) の **test-model** フォルダーを展開します。
 
@@ -232,6 +232,6 @@ python test-model.py
     
 8. 出力を表示し、"CompanyPhoneNumber" や "DatedAs" などのフィールド名がモデルの出力に含まれる様子を観察します。   
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Form Recognizer サービスの詳細については、[Form Recognizer のドキュメント](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/)を参照してください。
