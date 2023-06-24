@@ -4,13 +4,13 @@ lab:
   module: 'Module 10 - Detecting, Analyzing, and Recognizing Faces'
 ---
 
-# <a name="detect-and-analyze-faces"></a>顔の検出と分析
+# 顔の検出と分析
 
 人間の顔を検出して分析する機能は、AI のコア機能です。 この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision** サービスと **Face** サービスについて説明します。
 
 > **注**: 2022 年 6 月 21 日から、個人を特定できる情報を返すコグニティブ サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 さらに、感情的な状態を推測する機能は使用できなくなりました。 これらの制限は、このラボの演習に影響する可能性があります。 この問題に対処していますが、その間、次の手順に従うとエラーが発生する可能性があります。申し訳ございません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
@@ -21,14 +21,14 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
+## Cognitive Services リソースをプロビジョニングする
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
@@ -36,7 +36,7 @@ lab:
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDKを使用する準備をする
+## Computer Vision SDKを使用する準備をする
 
 この演習では、Computer Vision SDK を使用して画像内の顔を分析する部分的に実装されたクライアント アプリケーションを完成させます。
 
@@ -87,14 +87,14 @@ lab:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-## <a name="view-the-image-you-will-analyze"></a>ビューの画像は、あなたが分析します
+## 分析する画像の確認
 
 この演習では、Computer Vision サービスを使用して、人の画像を分析します。
 
 1. Visual Studio Code で、**computer-vision** フォルダーとそれに含まれる **images** フォルダーを展開します。
 2. **people.jpg** 画像を選択して表示します。
 
-## <a name="detect-faces-in-an-image"></a>画像内の顔を検出する
+## 画像内の顔を検出する
 
 これで、SDK を使用して Computer Vision サービスを呼び出し、画像内の顔を検出する準備が整いました。
 
@@ -140,7 +140,7 @@ lab:
     features = [VisualFeatureTypes.faces]
     ```
 
-4. **AnalyzeFaces** 関数で、コメント "**画像分析を取得する**" の下に、次のコードを追加します。
+4. **AnalyzeFaces** 関数で、コメント "**Get image analysis**" の下に、次のコードを追加します。
 
 **C#**
 
@@ -232,7 +232,7 @@ with open(image_file, mode="rb") as image_data:
 6. 検出された顔の数を示す出力を確認します。
 7. コード ファイルと同じフォルダーに生成された **detected_faces.jpg** ファイルを表示して、注釈付きの顔を確認します。 この場合、コードは顔の属性を使用してボックスの左上の場所にラベルを付け、境界ボックスの座標を使用して各顔の周りに長方形を描画しています。
 
-## <a name="prepare-to-use-the-face-sdk"></a>Face SDK を使用する準備をする
+## Face SDK を使用する準備をする
 
 **Computer Vision** サービスは (他の多くの画像分析機能とともに) 基本的な顔検出を提供しますが、**Face** サービスは顔の分析と認識のためのより包括的な機能を提供します。
 
@@ -281,7 +281,7 @@ with open(image_file, mode="rb") as image_data:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-7. **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、コメント "**Face クライアントを認証する**" を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します。
+7. **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、コメント "**Authenticate Face client**" を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します。
 
     **C#**
 
@@ -304,12 +304,12 @@ with open(image_file, mode="rb") as image_data:
 
 8. **Main** 関数で、追加したコードの下に、コード内の関数を呼び出して Face サービスの機能を調べることができるメニューがコードに表示されることを確認してください。 この演習の残りの部分では、これらの関数を実装します。
 
-## <a name="detect-and-analyze-faces"></a>顔を検出して分析する
+## 顔を検出して分析する
 
 Face サービスの最も基本的な機能の 1 つは、画像内の顔を検出し、頭部姿勢、ぼやけ、眼鏡の存在などの属性を決定することです。
 
 1. アプリケーションのコード ファイルの **Main** 関数で、ユーザーがメニュー オプション **1** を選択した場合に実行されるコードを調べます。 このコードは **DetectFaces** 関数を呼び出し、パスを画像ファイルに渡します。
-2. コード ファイルで **DetectFaces** 関数を見つけて、コメント "**取得する顔機能を指定する**" の下に、次のコードを追加します。
+2. コード ファイルで **DetectFaces** 関数を見つけて、コメント "**Specify facial features to be retrieved**" の下に、次のコードを追加します。
 
     **C#**
 
@@ -332,7 +332,7 @@ Face サービスの最も基本的な機能の 1 つは、画像内の顔を検
                 FaceAttributeType.glasses]
     ```
 
-3. **DetectFaces** 関数に追加したコードの下で、コメント "**顔を取得する**" を見つけて、次のコードを追加します。
+3. **DetectFaces** 関数に追加したコードの下で、コメント "**Get faces**" を見つけて、次のコードを追加します。
 
 **C#**
 
@@ -458,7 +458,7 @@ with open(image_file, mode="rb") as image_data:
 6. プロンプトが表示されたら、「**1**」と入力し、出力を観察します。ここには、検出された各顔の ID と属性が含まれているはずです。
 7. コード ファイルと同じフォルダーに生成された **detected_faces.jpg** ファイルを表示して、注釈付きの顔を確認します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 **Face** サービスにはいくつかの追加機能がありますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔認識モデルの識別、検証、作成が含まれます。 詳細とアクセスの申請については、[Cognitive Services の制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)に関するページを参照してください。
 
