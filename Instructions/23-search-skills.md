@@ -4,13 +4,13 @@ lab:
   module: Module 12 - Creating a Knowledge Mining Solution
 ---
 
-# <a name="create-a-custom-skill-for-azure-cognitive-search"></a>Azure Cognitive Search 用カスタム スキルの作成
+# Azure Cognitive Search 用カスタム スキルの作成
 
 Azure Cognitive Search は、コグニティブ スキルの強化パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 使用できる組み込みスキルの包括的なセットがありますが、これらのスキルでは満たされない特定の要件がある場合は、カスタムス キルを作成できます。
 
 この演習では、ドキュメント内の個々の単語の頻度を表にして、最もよく使用される上位5つの単語のリストを生成するカスタムスキルを作成し、それを架空の旅行代理店である Margie'sTravel の検索ソリューションに追加します。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボの作業をしている環境に既にクローンしている場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐクローンしてください。
 
@@ -21,7 +21,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるプロンプトが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-azure-resources"></a>Azure リソースを作成する
+## Azure リソースを作成する
 
 > **注**: 以前に「**[Azure Cognitive Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースがまだある場合は、このセクションをスキップして、「**検索ソリューションの作成**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
@@ -67,7 +67,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure Cognitive Services リソース、および Azure Cognitive Search リソースが含まれていることを確認します。
 
-## <a name="create-a-search-solution"></a>検索ソリューションの作成
+## 検索ソリューションの作成
 
 必要な Azure リソースが揃ったので、次のコンポーネントで構成される検索ソリューションを作成できます。
 
@@ -115,7 +115,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
-## <a name="search-the-index"></a>インデックスを検索する
+## インデックスを検索する
 
 インデックスができたので、検索できます。
 
@@ -128,7 +128,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
     このクエリを実行すると、*Reviewer* が作成した、*London* に言及していて正の**sentiment** ラベルが付いているすべてのドキュメント (つまり、ロンドンに言及している肯定的なレビュー) の **url**、**sentiment**、および**keyphrases**が取得されます。
 
-## <a name="create-an-azure-function-for-a-custom-skill"></a>カスタム スキル Azure 関数を作成する
+## カスタム スキル Azure 関数を作成する
 
 検索ソリューションには、前のタスクで見た感情スコアやキー フレーズのリストなど、ドキュメントからの情報でインデックスを充実させる多くの組み込みの認知スキルが含まれています。
 
@@ -326,7 +326,7 @@ module.exports = async function (context, req) {
 
 9. **[Test/Run]\(テスト/実行\)** ペインを閉じ、**wordcount** 関数のブレードで **[関数の URL の取得]** をクリックします。 その後、既定のキーの URL をクリップボードにコピーします。 これは次の手順で必要になります。
 
-## <a name="add-the-custom-skill-to-the-search-solution"></a>検索ソリューションにカスタム スキルを追加する
+## 検索ソリューションにカスタム スキルを追加する
 
 次に、関数をカスタム スキルとして検索ソリューション スキル セットに含め、生成された結果をインデックスのフィールドにマップする必要があります。 
 
@@ -359,7 +359,7 @@ module.exports = async function (context, req) {
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
-## <a name="search-the-index"></a>インデックスを検索する
+## インデックスを検索する
 
 インデックスができたので、検索できます。
 
@@ -372,6 +372,6 @@ module.exports = async function (context, req) {
 
     このクエリでは、*Las Vegas* に言及しているすべてのドキュメントの **url** フィールドと **top_words** フィールドが取得されます。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Azure Cognitive Search のカスタム スキルの作成の詳細については、[Azure Cognitive Search のドキュメント](https://docs.microsoft.com/azure/search/cognitive-search-custom-skill-interface)を参照してください。

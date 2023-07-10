@@ -1,14 +1,14 @@
 ---
 lab:
-  title: Language Understanding クライアント アプリケーションの作成
+  title: Language Understanding クライアント アプリケーションの作成 (非推奨)
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="create-a-language-understanding-client-application"></a>Language Understanding クライアント アプリケーションの作成
+# Language Understanding クライアント アプリケーションの作成
 
 Language Understanding サービスを使用すると、アプリケーションがユーザーからの自然言語入力を解釈し、ユーザーの "*意図*" (達成したいこと) を予測し、意図を適用する必要がある "*エンティティ*" を特定するために使用できる言語モデルをカプセル化するアプリを定義できます。 Language Understanding アプリを使用するクライアント アプリケーションは、REST インターフェイスを介して直接作成するか、言語固有のソフトウェア開発キット (SDK) を使用して作成できます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボの作業をしている環境に既にクローンしている場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐクローンしてください。
 
@@ -19,7 +19,7 @@ Language Understanding サービスを使用すると、アプリケーション
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-language-understanding-resources"></a>Language Understanding リソースの作成
+## Language Understanding リソースの作成
 
 Azure サブスクリプションに Language Understanding オーサリングおよび予測リソースが既にある場合は、この演習でそれらを使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
@@ -38,7 +38,7 @@ Azure サブスクリプションに Language Understanding オーサリング�
 
 3. リソースが作成されるまで待ちます。2 つの Language Understanding リソースがプロビジョニングされていることに注意してください。1 つは作成用、もう 1 つは予測用です。 作成先のリソース グループに移動すると、この両方を表示できます。
 
-## <a name="import-train-and-publish-a-language-understanding-app"></a>Language Understanding アプリをインポート、トレーニング、公開する
+## Language Understanding アプリをインポート、トレーニング、公開する
 
 前の演習の **Clock** アプリを既にお持ちの場合は、この演習で使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
@@ -54,7 +54,7 @@ Azure サブスクリプションに Language Understanding オーサリング�
 9. **[Azure リソース]** ページの **[予測リソース]** で、予測リソースが一覧表示されていない場合は、Azure サブスクリプションに予測リソースを追加します。
 10. 予測リソースの**主キー**、**2 次キー**、**エンドポイント URL** に注目します。 クライアント アプリケーションは、予測リソースに接続して認証されるために、エンドポイントとキーの 1 つを必要とします。
 
-## <a name="prepare-to-use-the-language-understanding-sdk"></a>Language Understanding SDK を使用する準備をする
+## Language Understanding SDK を使用する準備をする
 
 この演習では、クロック Language Understanding アプリを使用してユーザー入力から意図を予測し、適切に応答する、部分的に実装されたクライアント アプリケーションを完成させます。
 
@@ -108,7 +108,7 @@ from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-## <a name="get-a-prediction-from-the-language-understanding-app"></a>Language Understanding アプリから予測を取得する
+## Language Understanding アプリから予測を取得する
 
 これで、SDK を使用して Language Understanding アプリから予測を取得するコードを実装する準備が整いました。
 
@@ -298,17 +298,21 @@ python clock-client.py
 
     *Hello*
     
+<<<<<<< HEAD
     *What time is it??*
+=======
+    *What time is it?*
+>>>>>>> remotes/upstream/main
 
-    *What's the time in London?* \(ロンドンの時刻は何時ですか?\)
+    *What's the time in London?* (ロンドンの時刻は何時ですか?)
 
-    *What's the date?* \(何日ですか?\)
+    *What's the date?* (何日ですか?)
 
-    *What date is Sunday?* \(日曜日は何日ですか?\)
+    *What date is Sunday?* (日曜日は何日ですか?)
 
-    *What day is it?* \(何曜日ですか?\)
+    *What day is it?* (何曜日ですか?)
 
-    *What day is 01/01/2025?* \(2025 年 1 月 1 日は何曜日ですか?\)
+    *What day is 01/01/2025?* (2025 年 1 月 1 日は何曜日ですか?)
 
 > **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限があります。 たとえば、時間を取得する場合、制限された都市のセットのみがサポートされ、夏時間は無視されます。 目標は、アプリケーションが次のことを行う必要がある言語理解を使用するための一般的なパターンの例を確認することです。
 >
@@ -318,6 +322,6 @@ python clock-client.py
 
 6. テストが終了したら、「*quit*」と入力します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Language Understanding クライアントの作成の詳細については、[開発者向けドキュメント](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)を参照してください。

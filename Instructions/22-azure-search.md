@@ -4,7 +4,7 @@ lab:
   module: Module 12 - Creating a Knowledge Mining Solution
 ---
 
-# <a name="create-an-azure-cognitive-search-solution"></a>Azure Cognitive Search ソリューションを作成する
+# Azure Cognitive Search ソリューションを作成する
 
 すべての組織は、意思決定を行い、疑問に答え、効率的に機能するために情報を利用しています。 ほとんどの組織にとって問題となっているのは、情報の不足ではなく、情報が格納されている大量の一連のドキュメント、データベース、およびその他のソースから情報を検索して抽出するという課題です。
 
@@ -12,7 +12,7 @@ lab:
 
 この課題に対処するために、Margie'sTravel は Azure Cognitive Search を使用して、AI ベースのコグニティブ スキルを使用してドキュメントにインデックスを付け、強化して検索を容易にするソリューションを実装します。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
@@ -23,7 +23,7 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるプロンプトが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="create-azure-resources"></a>Azure リソースを作成する
+## Azure リソースを作成する
 
 Margie's Travel 用に作成するソリューションでは、お使いの Azure サブスクリプションに次のリソースが必要です。
 
@@ -33,7 +33,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 
 > **重要**: Azure Cognitive Search と Cognitive Services のリソースは同じ場所にある必要があります。
 
-### <a name="create-an-azure-cognitive-search-resource"></a>Azure Cognitive Search リソースを作成する
+### Azure Cognitive Search リソースを作成する
 
 1. Web ブラウザーで Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*search* を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
@@ -46,7 +46,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 3. デプロイが完了するまで待ち、デプロイされたリソースに移動します。
 4. Azure portal の Azure Cognitive Search リソースのブレードの **[概要]** ページを確認します。 ここでは、ビジュアル インターフェイスを使用して、検索ソリューションのさまざまなコンポーネントを作成、テスト、管理、および監視できます。データソース、インデックス、インデクサー、スキルセットを含みます。
 
-### <a name="create-a-cognitive-services-resource"></a>Cognitive Services リソースの作成
+### Cognitive Services リソースの作成
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。 検索ソリューションではこれを使用して、AI によって生成された分析情報でデータストア内のデータをエンリッチします。
 
@@ -59,7 +59,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 2. 必要なチェック ボックスをオンにして、リソースを作成します。
 3. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 
-### <a name="create-a-storage-account"></a>ストレージ アカウントの作成
+### ストレージ アカウントの作成
 
 1. Azure portal のホーム ページに戻り、**[&#65291;リソースの作成]** ボタンを選択し、''*ストレージ アカウント*'' を検索して、次の設定で**ストレージ アカウント** リソースを作成します。
     - **[サブスクリプション]**: *ご自身の Azure サブスクリプション*
@@ -74,7 +74,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 
     > **ヒント**: **ストレージ アカウント** ブレードを開いたままにします。次の手順では、サブスクリプション ID とキーの 1 つが必要になります。
 
-## <a name="upload-documents-to-azure-storage"></a>Azure Storage にドキュメントをアップロードする
+## Azure Storage にドキュメントをアップロードする
 
 必要なリソースが揃ったので、いくつかのドキュメントを　Azure　Storage　アカウントにアップロードできます。
 
@@ -95,7 +95,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     UploadDocs
     ```
 
-## <a name="index-the-documents"></a>ドキュメントのインデックスを作成する
+## ドキュメントのインデックスを作成する
 
 ドキュメントが配置されたので、インデックスを作成して検索ソリューションを作成できます。
 
@@ -153,7 +153,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     3. 抽出されたフィールドをインデックスにマップする。
 16. Azure Cognitive Search リソースの **[概要]** ページの下半分で、 **[インデクサー]** タブを表示します。ここに、新しく作成された **margies-indexer** が表示されるはずです。 数分待ち、 **[状態]** に成功が示されるまで **&orarr; [最新の情報に更新]** をクリックします。
 
-## <a name="search-the-index"></a>インデックスを検索する
+## インデックスを検索する
 
 インデックスができたので、検索できます。
 
@@ -190,13 +190,13 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
     このクエリは、"ニューヨーク" に言及している *Reviewer* によって作成されたドキュメントのファイル名を返します。
 
-## <a name="explore-and-modify-definitions-of-search-components"></a>検索コンポーネント定義の調査と変更
+## 検索コンポーネント定義の調査と変更
 
 検索ソリューションのコンポーネントは、Azure portal　で表示および編集できる　JSON　定義に基づいています。
 
 ポータルを使用して検索ソリューションを作成および変更できますが、検索オブジェクトを JSON で定義し、Azure Cognitive Service REST インターフェイスを使用してそれらを作成および変更することが望ましい場合がよくあります。
 
-### <a name="get-the-endpoint-and-key-for-your-azure-cognitive-search-resource"></a>Azure Cognitive Search リソースのエンドポイントとキーを取得する
+### Azure Cognitive Search リソースのエンドポイントとキーを取得する
 
 1. Azure portal で、Azure Cognitive Search リソースの **[概要]** ページに戻ります。ページの上部で、リソースの **Url** ( **https://resource_name.search.windows.net** のようになります) を見つけてクリップボードにコピーします。
 2. Visual Studio Code の [エクスプローラー] ペインで、**22-create-a-search-solution** フォルダーとその **modify-search** サブフォルダーを展開し、**modify-search.cmd** を選択して開きます。 このスクリプト ファイルを使用して、JSON を Azure Cognitive Service REST インターフェイスに送信する *cURL* コマンドを実行します。
@@ -205,7 +205,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 5. Visual Studio Code で、**YOUR_ADMIN_KEY** プレースホルダーをクリップボードにコピーしたキーに置き換えます。
 6. 変更を **modify-search.cmd** に保存します (ただし、まだ実行しないでください)
 
-### <a name="review-and-modify-the-skillset"></a>スキルセットを確認および変更する
+### スキルセットを確認および変更する
 
 1. Visual studio Code の **modify-search** フォルダーで、**skillset.json** を開きます。 これは、**margies-skillset** の JSON 定義を示しています。
 2. スキルセット定義の上部にある **cognitiveServices** オブジェクトに注意してください。このオブジェクトは、Cognitive Services リソースをスキルセットに接続するために使用されます。
@@ -243,7 +243,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
 6. **skillset.json** に加えた変更を保存します。
 
-### <a name="review-and-modify-the-index"></a>インデックスを確認して変更する
+### インデックスを確認して変更する
 
 1. Visual Studio Code の **modify-search** フォルダーで、**index.json** を開きます。 これは、**margies-index** の JSON 定義を示しています。
 2. インデックスをスクロールして、フィールド定義を表示します。 一部のフィールドはソースドキュメントのメタデータとコンテンツに基づいており、その他のフィールドはスキルセットのスキルの結果です。
@@ -271,7 +271,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
 4. **sentiment** フィールドは、スキルセットが追加された **get-sentiment** スキルからの出力を追加するために使用されます。 **url** フィールドは、データ ソースから抽出された **metadata_storage_path** 値に基づいて、インデックス付けされた各ドキュメントの URL をインデックスに追加するために使用されます。 インデックスには既に **metadata_storage_path** フィールドが含まれていますが、インデックス キーとして使用され、Base-64 でエンコードされているため、キーとして効率的ですが、実際の URL 値をフィールドとして使用する場合は、クライアント アプリケーションでデコードする必要があります。 エンコードされていない値に2番目のフィールドを追加すると、この問題が解決します。
 
-### <a name="review-and-modify-the-indexer"></a>インデクサーを確認して変更する
+### インデクサーを確認して変更する
 
 1. Visual Studio Code の **modify-search** フォルダーで、**indexer.json** を開きます。 これは、**margies-indexer** の JSON 定義を示しています。これは、ドキュメントのコンテンツとメタデータから抽出されたフィールド (**fieldMappings** セクション) と、スキルセットのスキルによって抽出された値 (**outputFieldMappings** セクション) をインデックスのフィールドにマップします。
 3. **fieldMappings** リストで、**metadata_storage_path** 値の base-64 エンコード キー フィールドへのマッピングに注意してください。 これは、**metadata_storage_path** をキーとして割り当て、Azure portal でキーをエンコードするオプションを選択したときに作成されました。 さらに、新しいマッピングは、同じ値を **url** フィールドに明示的にマップしますが、Base-64 エンコーディングは使用しません。
@@ -295,7 +295,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     }
     ```
 
-### <a name="use-the-rest-api-to-update-the-search-solution"></a>REST API を使用して検索ソリューションを更新する
+### REST API を使用して検索ソリューションを更新する
 
 1. **modify-search** フォルダーを右クリックして、統合ターミナルを開きます。
 2. **modify-search** フォルダーのターミナル ペインで、次のコマンドを入力して、**modify-search.cmd** スクリプトを実行します。このスクリプトは、JSON 定義を REST インターフェイスに送信し、インデックス作成を開始します。
@@ -308,7 +308,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
     *センチメントを評価するには大きすぎるいくつかのドキュメントに対して、いくつかの警告がある場合があります。多くの場合、感情分析は、ドキュメント全体ではなく、ページまたは文レベルで実行されます。ただし、この場合のシナリオでは、ほとんどのドキュメント (特にホテルのレビュー) は、有用なドキュメント レベルのセンチメント スコアを評価するのに十分なほど短いものです。*
 
-### <a name="query-the-modified-index"></a>変更されたインデックスをクエリする
+### 変更されたインデックスをクエリする
 
 1. Azure Cognitive Search リソースのブレードの上部で、 **[検索エクスプローラー]** を選択します。
 2. 検索エクスプローラーの **[クエリ文字列]** ボックスに、次のクエリ文字列を入力し、 **[検索]** を選択します。
@@ -317,24 +317,24 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment eq 'positive'
     ```
 
-    このクエリを実行すると、*Reviewer* が作成した、*London* に言及していて正の**センチメント** ラベルが付いているすべてのドキュメント (つまり、ロンドンに言及している肯定的なレビュー) の **url**、**センチメント**、および**キーフレーズ**が取得されます。
+    このクエリを実行すると、*Reviewer* が作成した、*London* に言及していて正の**sentiment** ラベルが付いているすべてのドキュメント (つまり、ロンドンに言及している肯定的なレビュー) の **url**、**sentiment**、および**keyphrases**が取得されます。
 
 3. **検索エクスプローラー** ページを閉じて、 **[概要]** ページに戻ります。
 
-## <a name="create-a-search-client-application"></a>検索クライアント アプリケーションを作成する
+## 検索クライアント アプリケーションを作成する
 
 有用なインデックスができたので、クライアント アプリケーションからそれを使用できます。 これを行うには、REST インターフェイスを使用し、要求を送信し、HTTP　を介して　JSO　N形式で応答を受信します。または、お好みのプログラミング言語用のソフトウェア開発キット (SDK) を使用することもできます。 この演習では、SDK を使用します。
 
 > **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
-### <a name="get-the-endpoint-and-keys-for-your-search-resource"></a>検索リソースのエンドポイントとキーを取得する
+### 検索リソースのエンドポイントとキーを取得する
 
 1. Azure portal の Azure Cognitive Search　リソースの **[概要]** ページで、**https://*your_resource_name*.search.windows.net** のような **Url** 値に注意してください。 これは、検索リソースのエンドポイントです。
 2. **[キー]** ページで、2 つの**管理者**キーと 1 つの**クエリ** キーがあることに注意してください。 *管理者*キーは、検索リソースを作成および管理するために使用されます。*クエリ* キーは、検索クエリを実行するだけでよいクライアント アプリケーションによって使用されます。
 
     *クライアント アプリケーションのエンドポイントとクエリ キーが必要になります。*
 
-### <a name="prepare-to-use-the-azure-cognitive-search-sdk"></a>Azure Cognitive Search SDK を使用するための準備
+### Azure Cognitive Search SDK を使用するための準備
 
 1. Visual Studio Code の **[エクスプローラー]** ペインで、**22-create-a-search-solution** フォルダーを参照し、言語の設定に応じて **C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
 2. **margies-travel** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure Cognitive Search SDK パッケージをインストールします。
@@ -357,7 +357,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
     構成ファイルを開き、含まれている構成値を更新して、Azure Cognitive Search リソースの**エンドポイント**と**クエリ キー**を反映します。 変更を保存します。
 
-### <a name="explore-code-to-search-an-index"></a>インデックスを検索するためのコードの探索
+### インデックスを検索するためのコードの探索
 
 **margies-travel** フォルダーには、検索機能を含む Web アプリケーション (Microsoft C# *ASP.NET Razor* Web アプリケーションまたは Python *Flask* アプリケーション) のコード ファイルが含まれています。
 
@@ -375,7 +375,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     - 検索語が強調表示された **merged_content** フィールドと **imageCaption** フィールドの最大 3 つの抽出が結果に含まれます。
     - 結果には、指定されたフィールドのみが含まれます。
 
-### <a name="explore-code-to-render-search-results"></a>検索結果をレンダリングするためのコードを探索する
+### 検索結果をレンダリングするためのコードを探索する
 
 Web アプリには、検索結果を処理およびレンダリングするためのコードが既に含まれています。
 
@@ -397,7 +397,7 @@ Web アプリには、検索結果を処理およびレンダリングするた�
         - 最初の 5 つの **locations** (ある場合) を表示します。
         - 最初の 5 つの **imageTags** (ある場合) を表示します。
 
-### <a name="run-the-web-app"></a>Web アプリの実行
+### Web アプリの実行
 
  1. **margies-travel** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
@@ -428,6 +428,6 @@ Web アプリには、検索結果を処理およびレンダリングするた�
     - **Mojave desert** (この用語が一部のドキュメントで*場所*として識別されていることに注意してください)。
 10. Margie's Travel の Web サイトが含まれているブラウザー タブを閉じ、Visual Studio Code に戻ります。 次に、**margies-travel** フォルダー (dotnet または flask アプリケーションが実行されている) の Python ターミナルで、Ctrl+C を入力してアプリを停止します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Azure Cognitive Search の詳細については、[Azure Cognitive Search のドキュメント](https://docs.microsoft.com/azure/search/search-what-is-azure-search)を参照してください。

@@ -4,11 +4,11 @@ lab:
   module: Module 8 - Getting Started with Computer Vision
 ---
 
-# <a name="analyze-images-with-computer-vision"></a>Computer Vision を使用する画像の分析
+# Computer Vision を使用する画像の分析
 
 Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。 Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。 Computer Vision サービスを使用して、画像の色と形式を分析し、"スマートにトリミングされた" サムネイル画像を生成することもできます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+## このコースのリポジトリを複製する
 
 このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
@@ -19,13 +19,13 @@ Computer Vision は、ソフトウェアシステムが画像を分析するこ�
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
+## Cognitive Services リソースをプロビジョニングする
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
-    - **[サブスクリプション]**:*ご自身の Azure サブスクリプション*
+    - **[サブスクリプション]**: *ご自身の Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* 
     - **[リージョン]**: *使用できるリージョンを選択します*
     - **[名前]**: *一意の名前を入力します*
@@ -34,7 +34,7 @@ Computer Vision は、ソフトウェアシステムが画像を分析するこ�
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDKを使用する準備をする
+## Computer Vision SDKを使用する準備をする
 
 この演習では、Computer VisionSDKを使用して画像を分析する部分的に実装されたクライアントアプリケーションを完成させます。
 
@@ -84,14 +84,14 @@ from azure.cognitiveservices.vision.computervision.models import VisualFeatureTy
 from msrest.authentication import CognitiveServicesCredentials
 ```
     
-## <a name="view-the-images-you-will-analyze"></a>ビューの画像は、あなたが分析します
+## ビューの画像は、あなたが分析します
 
 この演習では、Computer Vision サービスを使用して複数の画像を分析します。
 
 1. Visual Studio Code で、**image-analysis** フォルダーとそれに含まれる **images** フォルダーを展開します。
 2. 各画像ファイルを順番に選択して表示し、Visual Studio Code で表示します。
 
-## <a name="analyze-an-image-to-suggest-a-caption"></a>画像を分析してキャプションを提案する
+## 画像を分析してキャプションを提案する
 
 これで、SDK を使用して Computer Vision サービスを呼び出す準備が整いました。
 
@@ -226,7 +226,7 @@ python image-analysis.py images/street.jpg
 7. 今度は引数 **images/building.jpg** を使用してプログラムを再度実行し、**building.jpg** 画像に対して生成されるキャプションを確認します。
 8. 前の手順を繰り返して、**images/person.jpg** ファイルのキャプションを生成します。
 
-## <a name="get-suggested-tags-for-an-image"></a>画像の推奨タグを取得
+## 画像の推奨タグを取得
 
 画像の内容に関する手がかりを提供する関連*タグ*を特定すると役立つ場合があります。
 
@@ -258,7 +258,7 @@ if (len(analysis.tags) > 0):
 
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、画像のキャプションに加えて、提案されたタグのリストが表示されることを確認します。
 
-## <a name="get-image-categories"></a>Get image categories
+## Get image categories
 
 Computer Vision サービスは、画像の *"カテゴリ"* を提案でき、各カテゴリ内で有名なランドマークを識別できます。
 
@@ -327,7 +327,7 @@ if (len(analysis.categories) > 0):
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、画像のキャプションとタグに加えて、推奨されるカテゴリのリストが、認識されているランドマーク (具体的には **building.jpg** の画像) とともに表示されることを確認します。
 
-## <a name="get-brands-in-an-image"></a>画像でブランドを取得する
+## 画像でブランドを取得する
 
 一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。 Computer Vision サービスは、何千もの有名なブランドを特定するためにトレーニングされています。
 
@@ -359,7 +359,7 @@ if (len(analysis.brands) > 0):
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、識別されたブランド (具体的には、**person.jpg** 画像) を確認します。
 
-## <a name="detect-and-locate-objects-in-an-image"></a>画像内のオブジェクトを検出して特定する
+## 画像内のオブジェクトを検出して特定する
 
 *物体検出*は、画像内の個々のオブジェクトが識別され、その場所が境界ボックスで示される特定の形式の Computer Vision です。
 
@@ -430,7 +430,7 @@ if len(analysis.objects) > 0:
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、検出されるオブジェクトを監視します。 実行するたびに、コードファイルと同じフォルダーに生成された **objects.jpg** ファイルを表示して、注釈付きのオブジェクトを確認します。
 
-## <a name="get-moderation-ratings-for-an-image"></a>画像のモデレート評価を取得する
+## 画像のモデレート評価を取得する
 
 一部の画像はすべての視聴者に適しているとは限らないため、成人向けまたは暴力的な性質の画像を特定するためにモデレートを適用する必要がある場合があります。
 
@@ -458,7 +458,7 @@ print(ratings)
 
 > **注**: 前のタスクでは、単一の方法を使用して画像を分析し、コードを段階的に追加して結果を解析および表示しました。 SDK には、キャプションの提案、タグの識別、オブジェクトの検出などの個別のメソッドも用意されています。つまり、最も適切なメソッドを使用して必要な情報のみを返し、返す必要のあるデータ ペイロードのサイズを減らすことができます。 詳細については、[.NET SDK のドキュメント](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet)または [Python SDK のドキュメント](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python)を参照してください。
 
-## <a name="generate-a-thumbnail-image"></a>サムネイル画像の生成
+## サムネイル画像の生成
 
 場合によっては、*サムネイル*という名前の画像の小さいバージョンを作成し、それをトリミングして、新しい画像の寸法内に主要な視覚的主題を含める必要があります。
 
@@ -503,7 +503,7 @@ print('Thumbnail saved in.', thumbnail_file_name)
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、各画像のコード ファイルと同じフォルダーに生成された **thumbnail.jpg** ファイルを開きます。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 この演習では、Computer Vision サービスの画像分析および操作機能のいくつかについて説明しました。 このサービスには、テキストの読み取り、顔の検出、およびその他の Computer Vision タスクの機能も含まれています。
 
