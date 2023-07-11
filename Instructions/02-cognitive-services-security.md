@@ -185,7 +185,7 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
     **Python**
 
     ```
-    pip install azure-ai-textanalytics==5.1.0
+    pip install azure-ai-textanalytics==5.3.0
     pip install azure-identity==1.5.0
     pip install azure-keyvault-secrets==4.2.0
     ```
