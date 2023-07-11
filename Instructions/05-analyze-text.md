@@ -54,7 +54,7 @@ lab:
     **Python**
     
     ```
-    pip install azure-ai-textanalytics==5.1.0
+    pip install azure-ai-textanalytics==5.3.0
     ```
     
 3. **text-analysis** フォルダーの内容を表示し、構成設定用のファイルが含まれていることにご注意ください。
