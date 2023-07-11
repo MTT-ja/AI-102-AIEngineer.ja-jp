@@ -95,7 +95,7 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
     **Python**
 
     ```
-    pip install azure-ai-textanalytics==5.1.0
+    pip install azure-ai-textanalytics==5.3.0
     ```
 
 3. **sdk-client** フォルダーの内容を表示し、構成設定用のファイルが含まれていることにご注意ください。
