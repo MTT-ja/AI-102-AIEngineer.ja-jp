@@ -72,7 +72,7 @@ cookiecutter https://github.com/microsoft/botbuilder-python/releases/download/Te
 
 **Python** を使用している場合は、cookiecutter のプロンプトが表示されたら、次の詳細を入力します。
 - **bot_name**: TimeBot
-- **bot_description**: 私たちの時代のボット
+- **bot_description**: A bot for our times
     
 5. ターミナル ペインで、次のコマンドを入力して、現在のディレクトリを **TimeBot** フォルダーに変更し、ボット用に生成されたコード ファイルを一覧表示します。
 
