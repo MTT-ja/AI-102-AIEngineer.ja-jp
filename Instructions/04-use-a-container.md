@@ -4,13 +4,15 @@ lab:
   module: Module 2 - Developing AI Apps with Cognitive Services
 ---
 
-# <a name="use-a-cognitive-services-container"></a>Cognitive Services コンテナーの使用
+# Cognitive Services コンテナーの使用
 
 Azure でホストされている Cognitive Services を使用すると、アプリケーション開発者は、Microsoft が管理するスケーラブルなサービスの恩恵を受けながら、独自のコードのインフラストラクチャに集中できます。 ただし、多くのシナリオでは、組織はサービス インフラストラクチャとサービス間で受け渡されるデータをより細かく制御する必要があります。
 
-Cognitive Services API の多くは、"*コンテナー*" にパッケージ化してデプロイできるため、組織は独自のインフラストラクチャで Cognitive Services をホストできます。たとえば、ローカル Docker サーバー、Azure Container Instances、または Azure Kubernetes Services クラスターなどです。 コンテナー化された Cognitive Services は、課金をサポートするために Azure ベースの Cognitive Services アカウントと通信する必要があります。ただし、アプリケーション データはバックエンド サービスに渡されず、組織はコンテナーの展開構成をより細かく制御できるため、認証、スケーラビリティ、およびその他の考慮事項に対応したスタム ソリューションを実現できます。
+Cognitive Services API の多くは、"*コンテナー*" にパッケージ化してデプロイできるため、組織は独自のインフラストラクチャで Cognitive Services をホストできます。たとえば、ローカル Docker サーバー、Azure Container Instances、または Azure Kubernetes Services クラスターなどです。 コンテナー化された Cognitive Services は、課金をサポートするために Azure ベースの Cognitive Services アカウントと通信する必要があります。ただし、アプリケーション データはバックエンド サービスに渡されず、組織はコンテナーの展開構成をより細かく制御できるため、認証、スケーラビリティ、およびその他の考慮事項に対応したカスタム ソリューションを実現できます。
 
-## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
+> **注**: 一部のユーザーに対して、コンテナーが適切にデプロイされず、それらのコンテナーの呼び出しが失敗するという問題が発生しており、現在調査中です。 このラボの更新は、問題が解決され次第、すぐに行います。
+
+## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボの作業をしている環境に既にクローンしている場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐクローンしてください。
 
@@ -21,14 +23,14 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
+## Cognitive Services リソースをプロビジョニングする
 
 サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
@@ -36,7 +38,7 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## <a name="deploy-and-run-a-text-analytics-container"></a>Text Analytics コンテナーをデプロイして実行する
+## Text Analytics コンテナーをデプロイして実行する
 
 一般的に使用される多くの Cognitive Services API は、コンテナー イメージで利用できます。 完全なリストについては、[Cognitive Services のドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)をご確認ください。 この演習では、Text Analytics "*言語検出*" API のコンテナー イメージを使用します。ただし、原則は利用可能なすべての画像で同じです。
 
@@ -49,7 +51,7 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
         - **[リージョン]**: 使用できるリージョンを選択します**
         - **イメージのソース**:その他のレジストリ
         - **イメージの種類**: パブリック
-        - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
+        - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest`
         - **OS の種類**: Linux
         - **サイズ**: 1 vCPU、4 GB メモリ
     - **[ネットワーク]**:
@@ -84,7 +86,7 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
     >
     > このコマンドはローカル マシン上の画像を検索しますが見つからない場合は、*mcr.microsoft.com* イメージ レジストリからプルされ、Docker インスタンスにデプロイされます。 デプロイが完了すると、コンテナーが起動し、ポート 5000 で着信要求をリッスンします。
 
-## <a name="use-the-container"></a>コンテナーを使用する
+## コンテナーを使用する
 
 1. Visual Studio Code の **04-containers** フォルダーで、**rest-test.cmd** を開き、含まれている **curl** コマンド (以下に表示) を編集して、 *&lt;your_ACI_IP_address_or_FQDN&gt;* をコンテナーの IP アドレスまたは FQDN に置き換えます。
 
@@ -101,13 +103,13 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
 
 4. コマンドが 2 つの入力ドキュメント (英語とフランス語である必要があります) で検出された言語に関する情報を含む JSON ドキュメントを返すことを確認します。
 
-## <a name="clean-up"></a>クリーンアップする
+## クリーンアップする
 
 Container Instances の実験が終了したら、それを削除する必要があります。
 
 1. Azure portal で、この演習用のリソースを作成したリソース グループを開きます。
 2. Container Instances リソースを選択して削除します。
 
-## <a name="more-information"></a>詳細情報
+## 詳細情報
 
 Cognitive Services のコンテナー化の詳細については、[Cognitive Services コンテナーのドキュメント](https://docs.microsoft.com/azure/cognitive-services/containers/)を参照してください。
