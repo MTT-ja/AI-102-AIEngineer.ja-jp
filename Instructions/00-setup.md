@@ -22,7 +22,7 @@ Windows 10 をインストールし、すべての更新プログラムを適用
 
 ### .NET Core SDK
 
-1. https://dotnet.microsoft.com/download ダウンロードしてインストールします (ランタイムだけでなく、.NET Core SDK をダウンロードします)
+1. https://dotnet.microsoft.com/download からダウンロードしてインストールします (ランタイムだけでなく、.NET Core SDK をダウンロードします)。 このコースのラボを自分のコンピューターで実行している場合は、.NET 6.0 と .NET 3.1 の両方がインストールされている必要があります。
 
 ### C++ 再頒布可能パッケージ
 
