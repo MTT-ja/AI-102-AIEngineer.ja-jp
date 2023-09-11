@@ -51,7 +51,7 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
         - **イメージの種類**: パブリック
         - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
         - **OS の種類**: Linux
-        - **サイズ**: 1 vCPU、4 GB メモリ
+        - **サイズ**: 1 vCPU、12 GB メモリ
     - **[ネットワーク]**:
         - **ネットワークの種類**: パブリック
         - **DNS 名ラベル**: "*コンテナー エンドポイントの一意の名前を入力します*"
