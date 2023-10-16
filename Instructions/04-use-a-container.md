@@ -49,7 +49,7 @@ Cognitive Services API の多くは、"*コンテナー*" にパッケージ化�
         - **[リージョン]**: 使用できるリージョンを選択します**
         - **イメージのソース**:その他のレジストリ
         - **イメージの種類**: パブリック
-        - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
+        - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest`
         - **OS の種類**: Linux
         - **サイズ**: 1 vCPU、12 GB メモリ
     - **[ネットワーク]**:
