@@ -62,13 +62,13 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 13. スクリプトが完了したら、表示された出力を確認し、ご自分の Azure リソースに関する次の情報をメモします (これらの値は後で必要になります)。
     - ストレージ アカウント名
     - ストレージ接続文字列
-    - Cognitive Services アカウント
-    - Cognitive Services キー
+    - Azure AI サービス アカウント
+    - Azure AI サービス キー
     - Search Service エンドポイント
     - Search Service の管理者キー
     - Search Service のクエリ キー
 
-14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure Cognitive Services リソース、および Azure Cognitive Search リソースが含まれていることを確認します。
+14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure Cognitive Search リソースが含まれていることを確認します。
 
 ## 検索ソリューションの作成
 
@@ -96,9 +96,9 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 
 3. 更新された JSON ファイルを保存して閉じます。
 4. **create-search** フォルダーで、**skillset.json** を開きます。 このファイルには、**margies-knowledge-skillset** という名前のスキルセットの JSON 定義が含まれています。
-5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Cognitive Services リソースのいずれかのキーに置き換えます。
+5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Cognitive Services リソースの **[キーとエンドポイント]** ページにあります。*
+    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
 
 6. スキルセット内のスキルのコレクションの最後に、**define-projection** という名前の **Microsoft.Skills.Util.ShaperSkill** スキルを見つけます。 このスキルは、インデクサーによって処理される各ドキュメントのナレッジ ストアにパイプラインが保持されるプロジェクションに使用される、強化されたデータの JSON 構造を定義します。
 7. スキル セット ファイルの下部に、ナレッジ ストア定義が含まれていることを確認します。**ナレッジ ストア**定義には、ナレッジ ストアが作成される Azure Storage アカウントの接続文字列と、**プロジェクション**のコレクションが含まれています。 このスキルセットには、次の 3 つの "*プロジェクション グループ*" が含まれます。
@@ -126,7 +126,7 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
     *これらの値は、Azure portal の Azure Cognitive Search リソースの **[概要]** ページと **[キー]** ページにあります。*
 
 3. 更新したバッチファイルを保存します。
-4. **create-search** フォルダーを右クリックし、 **[Open in Integrated Terminal](統合ターミナルで開く)** を選択します。
+4. **create-search** フォルダーを右クリックし、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。
 5. **create-search** フォルダーのターミナル ペインで、次のコマンドを入力してバッチ スクリプトを実行します。
 
     ```

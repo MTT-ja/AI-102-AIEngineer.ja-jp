@@ -59,13 +59,13 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 13. スクリプトが完了したら、表示された出力を確認し、ご自分の Azure リソースに関する次の情報をメモします (これらの値は後で必要になります)。
     - ストレージ アカウント名
     - ストレージ接続文字列
-    - Cognitive Services アカウント
-    - Cognitive Services キー
+    - Azure AI サービス アカウント
+    - Azure AI サービス キー
     - Search Service エンドポイント
     - Search Service の管理者キー
     - Search Service のクエリ キー
 
-14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure Cognitive Services リソース、および Azure Cognitive Search リソースが含まれていることを確認します。
+14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure Cognitive Search リソースが含まれていることを確認します。
 
 ## 検索ソリューションの作成
 
@@ -89,9 +89,9 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 3. 更新された JSON ファイルを保存して閉じます。
 4. **create-search** フォルダーで、**skillset.json** を開きます。 このファイルには、**margies-custom-skillset** という名前のスキルセットの JSON 定義が含まれています。
-5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Cognitive Services リソースのいずれかのキーに置き換えます。
+5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_AI_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Cognitive Services リソースの **[キーとエンドポイント]** ページにあります。*
+    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
 
 6. 更新された JSON ファイルを保存して閉じます。
 7. **create-search** フォルダーで、**index.json** を開きます。 このファイルには **margies-custom-index** という名前のインデックスの JSON 定義が含まれています。
@@ -332,9 +332,9 @@ module.exports = async function (context, req) {
 1. Visual Studio Code の **23-custom-search-skill/update-search** フォルダーで、**update-skillset.json** ファイルを開きます。 これには、スキルセットの JSON 定義が含まれています。
 2. スキルセットの定義を確認します。 これには、前と同じスキルに加えて、**get-top-words** という名前の新しい **WebApiSkill** スキルも含まれています。
 3. **get-top-words** スキルの定義を編集し、**uri** の値を (前の手順でクリップボードにコピーした) Azure 関数の URL に設定して、**YOUR-FUNCTION-APP-URL** を置き換えます。
-4. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Cognitive Services リソースのいずれかのキーに置き換えます。
+4. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_AI_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Cognitive Services リソースの **[キーとエンドポイント]** ページにあります。*
+    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
 
 5. 更新された JSON ファイルを保存して閉じます。
 6. **update-search** フォルダーで、**update-index.json** を開きます。 このファイルには、**margies-custom-index** インデックスの JSON 定義が含まれており、インデックス定義の下部に **top_words** という名前の追加フィールドがあります。

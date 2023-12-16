@@ -6,7 +6,7 @@ lab:
 
 # 言語サービス クライアント アプリケーションを作成する
 
-Azure Cognitive Service for Language モデルの Conversational Language Understanding 機能を使うと、"会話言語" モデルを定義することができます。これをクライアント アプリから使って、ユーザーからの自然言語入力を解釈し、ユーザーの *"意図"* (達成したいこと) を予測し、その意図を適用する必要がある *"エンティティ"* を特定することができます。 会話言語理解モデルを使用するクライアント アプリケーションは、REST インターフェイスを介して直接作成するか、言語固有のソフトウェア開発キット (SDK) を使用して作成できます。
+Azure AI Service for Language の会話言語理解機能を使用すると、クライアント アプリがユーザーからの自然言語入力を解釈し、ユーザーの*意図* (達成したいこと) を予測し、その意図を適用すべき*エンティティ*を識別できる会話言語モデルを定義できます。 会話言語理解モデルを使用するクライアント アプリケーションは、REST インターフェイスを介して直接作成するか、言語固有のソフトウェア開発キット (SDK) を使用して作成できます。
 
 ## このコースのリポジトリを複製する
 
@@ -37,7 +37,6 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     - **リージョン**: *westus2*
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: *S*
-    - **法的条項**: *確認するチェック ボックスをオンにする*
     - **責任ある AI 通知**: *確認するチェック ボックスをオンにする*
 
 3. リソースが作成されるまで待ちます。 リソースを作成したリソース グループに移動すると、リソースを表示できます。
@@ -56,7 +55,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 5. 効果的な言語サービス アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
 
-6. Language Studio ポータルの左側にある **[トレーニング ジョブ]** を選択して、アプリをトレーニングします。 **[トレーニング ジョブの開始]** をクリックし、モデルに **Clock** という名前を付け、既定のトレーニング モード (標準) とデータ分割を維持します。 **[Train](トレーニング)** を選択します。 トレーニングが完了するまでに数分かかる場合があります。
+6. Language Studio ポータルの左側にある **[トレーニング ジョブ]** を選択して、アプリをトレーニングします。 [**トレーニング ジョブの開始**] をクリックし、モデルに「**Clock**」という名前を付け、既定のトレーニング モード (標準) とデータ分割を維持します。 **[Train](トレーニング)** を選択します。 トレーニングが完了するまでに数分かかる場合があります。
 
     > **注**:モデル名 **Clock** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
@@ -64,7 +63,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     > **注**:デプロイ名 **production** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
-8. クライアント アプリケーションでは、デプロイされたモデルを使用するために、**エンドポイント URL** と**主キー**が必要です。 デプロイが完了したら、これらのパラメーターを取得するために、[https://portal.azure.com](https://portal.azure.com/?azure-portal=true) で Azure portal を開き、Azure サブスクリプションに関連付けられた Microsoft アカウントを使用してサインインします。 検索バーで、「**Language**」と検索して選択し、*Cognitive Services|Language サービス*を選択します。
+8. クライアント アプリケーションでは、デプロイされたモデルを使用するために、**エンドポイント URL** と**主キー**が必要です。 デプロイが完了したら、これらのパラメーターを取得するために、[https://portal.azure.com](https://portal.azure.com/?azure-portal=true) で Azure portal を開き、Azure サブスクリプションに関連付けられた Microsoft アカウントを使用してサインインします。 検索バーで、「**Language**」と検索して選択し、*Azure AI Services|Language サービス*を選択します。
 
 9. 言語サービス リソースが一覧表示されるので、そのリソースを選択します。
 
@@ -87,7 +86,8 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     **C#**
 
     ```
-    dotnet add package Azure.AI.Language.Conversations --version 1.0.0-beta.2
+    dotnet add package Azure.AI.Language.Conversations --version 1.0.0
+    dotnet add package Azure.Core
     ```
 
     **Python**
@@ -141,10 +141,10 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     ```C#
     // Create a client for the Language service model
-    Uri lsEndpoint = new Uri(predictionEndpoint);
-    AzureKeyCredential lsCredential = new AzureKeyCredential(predictionKey);
+    Uri endpoint = new Uri(predictionEndpoint);
+    AzureKeyCredential credential = new AzureKeyCredential(predictionKey);
 
-    ConversationAnalysisClient lsClient = new ConversationAnalysisClient(lsEndpoint, lsCredential);
+    ConversationAnalysisClient client = new ConversationAnalysisClient(endpoint, credential);
     ```
 
     **Python**
@@ -161,24 +161,41 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     ```C#
     // Call the Language service model to get intent and entities
-    var lsProject = "Clock";
-    var lsSlot = "production";
-
-    ConversationsProject conversationsProject = new ConversationsProject(lsProject, lsSlot);
-    Response<AnalyzeConversationResult> response = await lsClient.AnalyzeConversationAsync(userText, conversationsProject);
-
-    ConversationPrediction conversationPrediction = response.Value.Prediction as ConversationPrediction;
-
-    Console.WriteLine(JsonConvert.SerializeObject(conversationPrediction, Formatting.Indented));
+    var projectName = "Clock";
+    var deploymentName = "production";
+    var data = new
+    {
+        analysisInput = new
+        {
+            conversationItem = new
+            {
+                text = userText,
+                id = "1",
+                participantId = "1",
+            }
+        },
+        parameters = new
+        {
+            projectName,
+            deploymentName,
+            // Use Utf16CodeUnit for strings in .NET.
+            stringIndexType = "Utf16CodeUnit",
+        },
+        kind = "Conversation",
+    };
+    // Send request
+    Response response = await client.AnalyzeConversationAsync(RequestContent.Create(data));
+    dynamic conversationalTaskResult = response.Content.ToDynamicFromJson(JsonPropertyNames.CamelCase);
+    dynamic conversationPrediction = conversationalTaskResult.Result.Prediction;   
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(JsonSerializer.Serialize(conversationalTaskResult, options));
     Console.WriteLine("--------------------\n");
     Console.WriteLine(userText);
     var topIntent = "";
-    if (conversationPrediction.Intents[0].Confidence > 0.5)
+    if (conversationPrediction.Intents[0].ConfidenceScore > 0.5)
     {
         topIntent = conversationPrediction.TopIntent;
     }
-
-    var entities = conversationPrediction.Entities;
     ```
 
     **Python**
@@ -239,72 +256,51 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     switch (topIntent)
     {
         case "GetTime":
-            var location = "local";
-            // Check for entities
-            if (entities.Count > 0)
+            var location = "local";           
+            // Check for a location entity
+            foreach (dynamic entity in conversationPrediction.Entities)
             {
-                // Check for a location entity
-                foreach (ConversationEntity entity in conversationPrediction.Entities)
+                if (entity.Category == "Location")
                 {
-                    if (entity.Category == "Location")
-                    {
-                        //Console.WriteLine($"Location Confidence: {entity.Confidence}");
-                        location = entity.Text;
-                    }
-                    
+                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
+                    location = entity.Text;
                 }
-
             }
-
             // Get the time for the specified location
-            var getTimeTask = Task.Run(() => GetTime(location));
-            string timeResponse = await getTimeTask;
+            string timeResponse = GetTime(location);
             Console.WriteLine(timeResponse);
             break;
-
         case "GetDay":
-            var date = DateTime.Today.ToShortDateString();
-            // Check for entities
-            if (entities.Count > 0)
+            var date = DateTime.Today.ToShortDateString();            
+            // Check for a Date entity
+            foreach (dynamic entity in conversationPrediction.Entities)
             {
-                // Check for a Date entity
-                foreach (ConversationEntity entity in conversationPrediction.Entities)
+                if (entity.Category == "Date")
                 {
-                    if (entity.Category == "Date")
-                    {
-                        //Console.WriteLine($"Location Confidence: {entity.Confidence}");
-                        date = entity.Text;
-                    }
+                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
+                    date = entity.Text;
                 }
-            }
+            }            
             // Get the day for the specified date
-            var getDayTask = Task.Run(() => GetDay(date));
-            string dayResponse = await getDayTask;
+            string dayResponse = GetDay(date);
             Console.WriteLine(dayResponse);
             break;
-
         case "GetDate":
             var day = DateTime.Today.DayOfWeek.ToString();
-            // Check for entities
-            if (entities.Count > 0)
+            // Check for entities            
+            // Check for a Weekday entity
+            foreach (dynamic entity in conversationPrediction.Entities)
             {
-                // Check for a Weekday entity
-                foreach (ConversationEntity entity in conversationPrediction.Entities)
+                if (entity.Category == "Weekday")
                 {
-                    if (entity.Category == "Weekday")
-                    {
-                        //Console.WriteLine($"Location Confidence: {entity.Confidence}");
-                        day = entity.Text;
-                    }
+                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
+                    day = entity.Text;
                 }
-                
-            }
+            }          
             // Get the date for the specified day
-            var getDateTask = Task.Run(() => GetDate(day));
-            string dateResponse = await getDateTask;
+            string dateResponse = GetDate(day);
             Console.WriteLine(dateResponse);
             break;
-
         default:
             // Some other intent (for example, "None") was predicted
             Console.WriteLine("Try asking me for the time, the day, or the date.");
@@ -375,17 +371,17 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     *Hello*
     
-    *今何時?*
+    *What time is it?*
 
-    *What's the time in London?* (ロンドンの時刻は何時ですか?)
+    *What's the time in London?* \(ロンドンの時刻は何時ですか?\)
 
-    *What's the date?* (何日ですか?)
+    *What's the date?* \(何日ですか?\)
 
-    *What date is Sunday?* (日曜日は何日ですか?)
+    *What date is Sunday?* \(日曜日は何日ですか?\)
 
-    *What day is it?* (何曜日ですか?)
+    *What day is it?* \(何曜日ですか?\)
 
-    *What day is 01/01/2025?* (2025 年 1 月 1 日は何曜日ですか?)
+    *What day is 01/01/2025?* \(2025 年 1 月 1 日は何曜日ですか?\)
 
 > **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限があります。 たとえば、時間を取得する場合、制限された都市のセットのみがサポートされ、夏時間は無視されます。 目標は、アプリケーションが次のことを行う必要がある言語サービスを使用するための一般的なパターンの例を確認することです。
 >

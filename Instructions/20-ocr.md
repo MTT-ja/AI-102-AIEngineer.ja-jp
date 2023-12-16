@@ -6,7 +6,7 @@ lab:
 
 # 画像内のテキストの読み取り
 
-光学式文字認識 (OCR) は、画像およびドキュメント内のテキストの読み取りを処理する Computer Vision のサブセットです。 **Computer Vision** サービスにより、テキストを読み取るための 2 つの API が提供されます。これについては、この演習で説明します。
+光学式文字認識 (OCR) は、画像およびドキュメント内のテキストの読み取りを処理する Computer Vision のサブセットです。 **Azure AI Vision** サービスにより、テキストを読み取るための 2 つの API が提供されます。これについては、この演習で説明します。
 
 ## このコースのリポジトリを複製する
 
@@ -19,12 +19,12 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## Cognitive Services リソースをプロビジョニングする
+## Azure AI サービス リソースをプロビジョニングする
 
-サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
+サブスクリプションにまだリソースがない場合は、**Azure AI サービス** リソースをプロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. 上部の検索バーで「*Azure AI サービス*」を検索し、**Azure AI サービス**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
@@ -34,14 +34,14 @@ lab:
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## Computer Vision SDKを使用する準備をする
+## Azure AI Vision SDK を使用するための準備
 
-この演習では、Computer VisionSDK を使用してテキストを読み取る部分的に実装されたクライアント アプリケーションを完成させます。
+この演習では、Azure AI Vision SDK を使用してテキストを読み取る部分的に実装されたクライアント アプリケーションを完成させます。
 
-> **注**:**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
+> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**20-ocr** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. **read-text** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
+2. **read-text** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure AI Vision SDK パッケージをインストールします。
 
 **C#**
 
@@ -59,13 +59,13 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+    構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 4. **read-text** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
     - **Python**: read-text.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision SDK を使用するために必要な名前空間をインポートします。
 
 **C#**
 
@@ -84,12 +84,12 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-5. クライアント アプリケーションのコードファイルで **Main** 関数に、構成設定を読み込むためのコードが提供されていることにご注意ください。 次に、コメント「**Authenticate Computer Vision client**」を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+5. クライアント アプリケーションのコードファイルで **Main** 関数に、構成設定を読み込むためのコードが提供されていることにご注意ください。 次に、「**Authenticate Azure AI Vision client**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision クライアント オブジェクトを作成および認証します。
 
 **C#**
 
 ```C#
-// Authenticate Computer Vision client
+// Authenticate Azure AI Vision client
 ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
 cvClient = new ComputerVisionClient(credentials)
 {
@@ -100,7 +100,7 @@ cvClient = new ComputerVisionClient(credentials)
 **Python**
 
 ```Python
-# Authenticate Computer Vision client
+# Authenticate Azure AI Vision client
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
@@ -244,4 +244,4 @@ python read-text.py
 
 ## 詳細情報
 
-**Computer Vision** サービスを使用してテキストを読み取る方法の詳細については、[Computer Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text)を参照してください。
+**Azure AI Vision** サービスを使用してテキストを読み取る方法の詳細については、「[Azure AI Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text)」を参照してください。

@@ -1,12 +1,12 @@
 ---
 lab:
-  title: Computer Vision を使用する画像の分析
-  module: Module 8 - Getting Started with Computer Vision
+  title: Azure AI Vision を使用して画像を分析する
+  module: Module 8 - Getting Started with Azure AI Vision
 ---
 
-# Computer Vision を使用する画像の分析
+# Azure AI Vision を使用して画像を分析する
 
-Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。 Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。 Computer Vision サービスを使用して、画像の色と形式を分析し、"スマートにトリミングされた" サムネイル画像を生成することもできます。
+Azure AI Vision は、ソフトウェア システムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。 Microsoft Azure の **Vision** Azure AI サービスは、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルト コンテンツの有無の検出など、一般的なコンピューター ビジョン タスク用の構築済みモデルを提供します。 Azure AI Vision サービスを使用して、画像の色と形式を分析し、"スマートにトリミングされた" サムネイル画像を生成することもできます。
 
 ## このコースのリポジトリを複製する
 
@@ -19,12 +19,12 @@ Computer Vision は、ソフトウェアシステムが画像を分析するこ�
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## Cognitive Services リソースをプロビジョニングする
+## Azure AI サービス リソースをプロビジョニングする
 
-サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
+サブスクリプションにまだリソースがない場合は、**Azure AI サービス** リソースをプロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. 上部の検索バーで「*Azure AI サービス*」を検索し、**Azure AI サービス**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
     - **[リージョン]**: 使用できるリージョンを選択します**
@@ -34,14 +34,14 @@ Computer Vision は、ソフトウェアシステムが画像を分析するこ�
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## Computer Vision SDKを使用する準備をする
+## Azure AI Vision SDK を使用するための準備
 
-この演習では、Computer VisionSDKを使用して画像を分析する部分的に実装されたクライアントアプリケーションを完成させます。
+この演習では、Azure AI Vision SDK を使用して画像を分析する、部分的に実装されたクライアント アプリケーションを完成させます。
 
 > **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**15-computer-vision** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. **image-analysis** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
+2. **image-analysis** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure AI Vision SDK パッケージをインストールします。
 
 **C#**
 
@@ -59,13 +59,13 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+    構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 4. **image-analysis** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#** : Program.cs
     - **Python**: image-analysis.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision SDK を使用するために必要な名前空間をインポートします。
 
 **C#**
 
@@ -86,21 +86,21 @@ from msrest.authentication import CognitiveServicesCredentials
     
 ## ビューの画像は、あなたが分析します
 
-この演習では、Computer Vision サービスを使用して複数の画像を分析します。
+この演習では、Azure AI Vision サービスを使用して複数の画像を分析します。
 
 1. Visual Studio Code で、**image-analysis** フォルダーとそれに含まれる **images** フォルダーを展開します。
 2. 各画像ファイルを順番に選択して表示し、Visual Studio Code で表示します。
 
 ## 画像を分析してキャプションを提案する
 
-これで、SDK を使用して Computer Vision サービスを呼び出す準備が整いました。
+これで、SDK を使用して Vision サービスを呼び出し、画像を分析する準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。 次に、コメント「**Authenticate Computer Vision client**」を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。 次に、「**Authenticate Azure AI Vision client**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision クライアント オブジェクトを作成および認証します。
 
 **C#**
 
 ```C#
-// Authenticate Computer Vision client
+// Authenticate Azure AI Vision client
 ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
 cvClient = new ComputerVisionClient(credentials)
 {
@@ -111,7 +111,7 @@ cvClient = new ComputerVisionClient(credentials)
 **Python**
 
 ```Python
-# Authenticate Computer Vision client
+# Authenticate Azure AI Vision client
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
@@ -260,7 +260,7 @@ if (len(analysis.tags) > 0):
 
 ## Get image categories
 
-Computer Vision サービスは、画像の *"カテゴリ"* を提案でき、各カテゴリ内で有名なランドマークを識別できます。
+Vision サービスは、画像の*カテゴリ*を提案することができ、各カテゴリ内で既知のランドマークを識別できます。
 
 1. **AnalyzeImage** 関数のコメント "**Get image categories**" の下に、次のコードを追加します。
 
@@ -329,7 +329,7 @@ if (len(analysis.categories) > 0):
 
 ## 画像でブランドを取得する
 
-一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。 Computer Vision サービスは、何千もの有名なブランドを特定するためにトレーニングされています。
+一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。 Vision サービスは、何千もの既知のブランドを識別するようにトレーニングされています。
 
 1. **AnalyzeImage** 関数で、コメント "**Get brands in the image**" 下に、次のコードを追加します。
 
@@ -505,6 +505,6 @@ print('Thumbnail saved in.', thumbnail_file_name)
 
 ## 詳細情報
 
-この演習では、Computer Vision サービスの画像分析および操作機能のいくつかについて説明しました。 このサービスには、テキストの読み取り、顔の検出、およびその他の Computer Vision タスクの機能も含まれています。
+この演習では、Azure AI Vision サービスの画像分析および操作機能のいくつかについて説明しました。 このサービスには、テキストの読み取り、顔の検出、およびその他の Computer Vision タスクの機能も含まれています。
 
-**Computer Vision** サービスの使用の詳細については、[Computer Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/)を参照してください。
+**Azure AI Vision** サービスの詳細については、「[Azure AI Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/)」を参照してください。
