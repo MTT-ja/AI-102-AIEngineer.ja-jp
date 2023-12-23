@@ -1,12 +1,12 @@
 ---
 lab:
-  title: Azure Cognitive Search 用カスタム スキルの作成
+  title: Azure AI Search のカスタム スキルを作成する
   module: Module 12 - Creating a Knowledge Mining Solution
 ---
 
-# Azure Cognitive Search 用カスタム スキルの作成
+# Azure AI Search のカスタム スキルを作成する
 
-Azure Cognitive Search は、コグニティブ スキルの強化パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 使用できる組み込みスキルの包括的なセットがありますが、これらのスキルでは満たされない特定の要件がある場合は、カスタムス キルを作成できます。
+Azure AI Search は、AI スキルのエンリッチメント パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 使用できる組み込みスキルの包括的なセットがありますが、これらのスキルでは満たされない特定の要件がある場合は、カスタムス キルを作成できます。
 
 この演習では、ドキュメント内の個々の単語の頻度を表にして、最もよく使用される上位5つの単語のリストを生成するカスタムスキルを作成し、それを架空の旅行代理店である Margie'sTravel の検索ソリューションに追加します。
 
@@ -23,7 +23,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 ## Azure リソースを作成する
 
-> **注**: 以前に「**[Azure Cognitive Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースがまだある場合は、このセクションをスキップして、「**検索ソリューションの作成**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
+> **注**: 以前に「**[Azure AI Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、「**検索ソリューションを作成する**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
 1. Web ブラウザーで Azure portal (`https://portal.azure.com`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。
@@ -65,7 +65,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - Search Service の管理者キー
     - Search Service のクエリ キー
 
-14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure Cognitive Search リソースが含まれていることを確認します。
+14. Azure portal でリソース グループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure AI Search リソースが含まれていることを確認します。
 
 ## 検索ソリューションの作成
 
@@ -76,7 +76,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 - 検索可能なドキュメントレコードのセットを定義する**インデックス**。
 - データ ソースからドキュメントを抽出し、スキル セットを適用して、インデックスにデータを入力する**インデクサー**。
 
-この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
+この演習では、Azure AI Search REST インターフェイスを使用して、JSON 要求を送信することでこれらのコンポーネントを作成します。
 
 1. Visual Studio Code の **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開して、**data_source.json** を選択します。 このファイルには、**margies-custom-data** という名前のデータ ソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージ アカウントの接続文字列に置き換えます。これは次のようになります。
@@ -89,19 +89,19 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 3. 更新された JSON ファイルを保存して閉じます。
 4. **create-search** フォルダーで、**skillset.json** を開きます。 このファイルには、**margies-custom-skillset** という名前のスキルセットの JSON 定義が含まれています。
-5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_AI_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
+5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
+    *キーは、Azure portal の AIサービス リソースの **[キーとエンドポイント]** ページにあります。*
 
 6. 更新された JSON ファイルを保存して閉じます。
 7. **create-search** フォルダーで、**index.json** を開きます。 このファイルには **margies-custom-index** という名前のインデックスの JSON 定義が含まれています。
 8. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
 9. **create-search** フォルダーで、**indexer.json** を開きます。 このファイルには **margies-custom-indexer** という名前のインデックスの JSON 定義が含まれています。
 10. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
-11. **create-search** フォルダーで、**create-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
-12. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
+11. **create-search** フォルダーで、**create-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、Azure AI 検索リソースの REST インターフェイスに JSON 定義を送信します。
+12. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure AI 検索リソースの **URL** と**管理キー**の 1 つに置き換えます。
 
-    *これらの値は、Azure portal の Azure Cognitive Search リソースの **[概要]** ページと **[キー]** ページにあります。*
+    *これらの値は、Azure portal の Azure AI 検索リソースの **[概要]** ページと **[キー]** ページにあります。*
 
 13. 更新したバッチファイルを保存します。
 14. **create-search** フォルダーを右クリックし、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。
@@ -111,7 +111,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     create-search
     ```
 
-16. スクリプトが完了したら、Azure portal の Azure Cognitive Search リソースのページで、 **[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
+16. スクリプトが完了したら、Azure portal の Azure AI 検索リソース ページで、**[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
@@ -119,7 +119,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 インデックスができたので、検索できます。
 
-1. Azure Cognitive Search リソースのブレードの上部で、 **[検索エクスプローラー]** を選択します。
+1. Azure AI 検索リソースのブレードの上部で、**[検索エクスプローラー]** を選択します。
 2. 検索エクスプローラーの **[クエリ文字列]** ボックスに、次のクエリ文字列を入力し、 **[検索]** を選択します。
 
     ```
@@ -130,7 +130,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 ## カスタム スキル Azure 関数を作成する
 
-検索ソリューションには、前のタスクで見た感情スコアやキー フレーズのリストなど、ドキュメントからの情報でインデックスを充実させる多くの組み込みの認知スキルが含まれています。
+検索ソリューションには、前のタスクで確認したセンチメント スコアやキー フレーズのリストなど、ドキュメントからの情報でインデックスを充実させる多くの組み込みの AI スキルが含まれています。
 
 カスタム スキルを作成することで、インデックスをさらに強化できます。 たとえば、各ドキュメントで最も頻繁に使用される単語を特定すると便利な場合がありますが、この機能を提供する組み込みのスキルはありません。
 
@@ -140,12 +140,12 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 1. Azure portal の **[ホーム]** ページで、次の設定を使用して新しい**関数アプリ** リソースを作成します。
     - **[サブスクリプション]**: *該当するサブスクリプション*
-    - **[リソース グループ]** : *Azure Cognitive Search リソースと同じリソース グループ*
+    - **リソース グループ**: *Azure AI 検索リソースと同じリソース グループ*
     - **関数アプリ名**: *一意の名前*
     - **公開**: コード
     - **ランタイム スタック**:Node.js
     - **[バージョン]** : 14 LTS
-    - **[リージョン]** : *''Azure Cognitive Search リソースと同じリージョン''*
+    - **リージョン**: *Azure AI 検索リソースと同じリージョン*
 
 2. デプロイが完了するのを待ってから、デプロイされた関数アプリ リソースに移動します。
 3. 関数アプリのブレードの左側のペインで、 **[関数]** タブを選びます。次の設定を使用して、新しい関数を作成します。
@@ -258,7 +258,7 @@ module.exports = async function (context, req) {
 ```
 
 6. 関数を保存し、 **[テスト/実行]** ペインを開きます。
-7. **[Test/Run]\(テスト/実行\)** ペインで、既存の**本文**を次の JSON に置き換えます。これには、1 つ以上のドキュメントのデータを含むレコードを処理のために送信する Azure Cognitive Search スキルが必要とするスキーマが反映されています。
+7. **[テスト/実行]** ウィンドウで、既存の**本文**を次の JSON に置き換えます。これには、1 つ以上のドキュメントのデータを含むレコードを処理のために送信する Azure AI 検索スキルで必要なスキーマが反映されています。
 
     ```
     {
@@ -283,7 +283,7 @@ module.exports = async function (context, req) {
     }
     ```
     
-8. **[実行]** をクリックすると、作成した関数によって返された HTTP 応答の内容が表示されます。 これには、各ドキュメントの応答を返すスキルを利用するときに Azure Cognitive Search が必要とするスキーマが反映されています。 この場合では、応答は、出現頻度の降順の、各ドキュメント内にある最大 10 個の用語で構成されます。
+8. **[実行]** をクリックすると、作成した関数によって返された HTTP 応答の内容が表示されます。 これには、各ドキュメントの応答を返すスキルを利用するときに Azure AI 検索で必要なスキーマが反映されています。 この場合では、応答は、出現頻度の降順の、各ドキュメント内にある最大 10 個の用語で構成されます。
 
     ```
     {
@@ -332,19 +332,19 @@ module.exports = async function (context, req) {
 1. Visual Studio Code の **23-custom-search-skill/update-search** フォルダーで、**update-skillset.json** ファイルを開きます。 これには、スキルセットの JSON 定義が含まれています。
 2. スキルセットの定義を確認します。 これには、前と同じスキルに加えて、**get-top-words** という名前の新しい **WebApiSkill** スキルも含まれています。
 3. **get-top-words** スキルの定義を編集し、**uri** の値を (前の手順でクリップボードにコピーした) Azure 関数の URL に設定して、**YOUR-FUNCTION-APP-URL** を置き換えます。
-4. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_AI_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
+4. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
+    *キーは、Azure portal の AIサービス リソースの **[キーとエンドポイント]** ページにあります。*
 
 5. 更新された JSON ファイルを保存して閉じます。
 6. **update-search** フォルダーで、**update-index.json** を開きます。 このファイルには、**margies-custom-index** インデックスの JSON 定義が含まれており、インデックス定義の下部に **top_words** という名前の追加フィールドがあります。
 7. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
 8. **update-search** フォルダーで、**update-indexer.json** を開きます。 このファイルには、**margies-custom-indexer** の JSON 定義と、**top_words** フィールドの追加のマッピングが含まれています。
 9. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
-10. **update-search** フォルダーで、**update-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、更新されたJSON 定義を Azure CognitiveSearch リソースの REST インターフェイスに送信します。
-11. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
+10. **update-search** フォルダーで、**update-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、更新された JSON 定義を Azure AI 検索リソースの REST インターフェイスに送信します。
+11. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure AI 検索リソースの **URL** と**管理キー**の 1 つに置き換えます。
 
-    *これらの値は、Azure portal の Azure Cognitive Search リソースの **[概要]** ページと **[キー]** ページにあります。*
+    *これらの値は、Azure portal の Azure AI 検索リソースの **[概要]** ページと **[キー]** ページにあります。*
 
 12. 更新したバッチファイルを保存します。
 13. **update-search** フォルダーを右クリックし、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。
@@ -354,7 +354,7 @@ module.exports = async function (context, req) {
     update-search
     ```
 
-15. スクリプトが完了したら、Azure portal の Azure Cognitive Search リソースのページで、 **[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
+15. スクリプトが完了したら、Azure portal の Azure AI 検索リソース ページで、**[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
@@ -362,15 +362,18 @@ module.exports = async function (context, req) {
 
 インデックスができたので、検索できます。
 
-1. Azure Cognitive Search リソースのブレードの上部で、 **[検索エクスプローラー]** を選択します。
-2. 検索エクスプローラーの **[クエリ文字列]** ボックスに、次のクエリ文字列を入力し、 **[検索]** を選択します。
+1. Azure AI 検索リソースのブレードの上部で、**[検索エクスプローラー]** を選択します。
+2. 検索エクスプローラーで、ビューを **JSON ビュー**に変更し、次の検索クエリを送信します。
 
-    ```
-    search=Las Vegas&$select=url,top_words
+    ```json
+    {
+      "search": "Las Vegas",
+      "select": "url,top_words"
+    }
     ```
 
     このクエリでは、*Las Vegas* に言及しているすべてのドキュメントの **url** フィールドと **top_words** フィールドが取得されます。
 
 ## 詳細情報
 
-Azure Cognitive Search のカスタム スキルの作成の詳細については、[Azure Cognitive Search のドキュメント](https://docs.microsoft.com/azure/search/cognitive-search-custom-skill-interface)を参照してください。
+Azure AI 検索のカスタム スキルの作成の詳細については、「[Azure AI 検索のドキュメント](https://docs.microsoft.com/azure/search/cognitive-search-custom-skill-interface)」をご覧ください。

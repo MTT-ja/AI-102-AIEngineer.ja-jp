@@ -1,12 +1,12 @@
 ---
 lab:
-  title: Azure Cognitive Search 用ナレッジ ストアの作成
+  title: Azure AI 検索を使用してナレッジ ストアを作成する
   module: Module 12 - Creating a Knowledge Mining Solution
 ---
 
-# Azure Cognitive Search 用ナレッジ ストアの作成
+# Azure AI 検索を使用してナレッジ ストアを作成する
 
-Azure Cognitive Search は、コグニティブ スキルの強化パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 インデックスはインデックス作成プロセスの主な出力と見なせますが、それに含まれるエンリッチされたデータも他の方法で役立てることができます。 次に例を示します。
+Azure AI Search は、AI スキルのエンリッチメント パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 インデックスはインデックス作成プロセスの主な出力と見なせますが、それに含まれるエンリッチされたデータも他の方法で役立てることができます。 次に例を示します。
 
 - 基本的にインデックスは、それぞれがインデックス付きレコードを表す JSON オブジェクトのコレクションであるため、オブジェクトを JSON ファイルとしてエクスポートし、Azure Data Factory などのツールによるデータ オーケストレーション プロセスへの統合に使用するのに役立つ可能性があります。
 - Microsoft Power BI などのツールで分析やレポートを行うために、インデックス レコードをテーブルのリレーショナル スキーマに正規化することもできます。
@@ -27,7 +27,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 ## Azure リソースを作成する
 
-> **注**: 以前に「**[Azure Cognitive Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースがまだある場合は、このセクションをスキップして、「**検索ソリューションの作成**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
+> **注**: 以前に「**[Azure AI Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、「**検索ソリューションを作成する**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
 1. Web ブラウザーで Azure portal (`https://portal.azure.com`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。
@@ -68,7 +68,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - Search Service の管理者キー
     - Search Service のクエリ キー
 
-14. Azure portal で、リソースグループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure Cognitive Search リソースが含まれていることを確認します。
+14. Azure portal でリソース グループを更新し、Azure Storage アカウント、Azure AI サービス リソース、Azure AI Search リソースが含まれていることを確認します。
 
 ## 検索ソリューションの作成
 
@@ -79,11 +79,11 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 - 検索可能なドキュメント レコードのセットを定義する**インデックス**。
 - データ ソースからドキュメントを抽出し、スキル セットを適用して、インデックスにデータを入力する**インデクサー**。 インデックス作成のプロセスは、ナレッジ ストアのスキル セットで定義された予測も保持します。
 
-この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
+この演習では、Azure AI Search REST インターフェイスを使用して、JSON 要求を送信することでこれらのコンポーネントを作成します。
 
 ### REST 操作用の JSON の準備
 
-REST インターフェイスを使用して、Azure CognitiveSearch コンポーネントの JSON 定義を送信します。
+REST インターフェイスを使用して、Azure AI 検索コンポーネントの JSON 定義を送信します。
 
 1. Visual Studio Code の **24-knowledge-store** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。 このファイルには、**margies-knowledge-data** という名前のデータソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージ アカウントの接続文字列に置き換えます。これは次のようになります。
@@ -98,7 +98,7 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 4. **create-search** フォルダーで、**skillset.json** を開きます。 このファイルには、**margies-knowledge-skillset** という名前のスキルセットの JSON 定義が含まれています。
 5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Azure AI サービス リソースのいずれかのキーに置き換えます。
 
-    *キーは、Azure portal の Azure AI サービス リソースの **キーとエンドポイント**ページにあります。*
+    *キーは、Azure portal の AIサービス リソースの **[キーとエンドポイント]** ページにあります。*
 
 6. スキルセット内のスキルのコレクションの最後に、**define-projection** という名前の **Microsoft.Skills.Util.ShaperSkill** スキルを見つけます。 このスキルは、インデクサーによって処理される各ドキュメントのナレッジ ストアにパイプラインが保持されるプロジェクションに使用される、強化されたデータの JSON 構造を定義します。
 7. スキル セット ファイルの下部に、ナレッジ ストア定義が含まれていることを確認します。**ナレッジ ストア**定義には、ナレッジ ストアが作成される Azure Storage アカウントの接続文字列と、**プロジェクション**のコレクションが含まれています。 このスキルセットには、次の 3 つの "*プロジェクション グループ*" が含まれます。
@@ -120,10 +120,10 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 
 検索ソリューションコンポーネントを定義する JSON オブジェクトを準備したので、JSON ドキュメントを REST インターフェイスに送信して作成できます。
 
-1. **create-search** フォルダーで、**create-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
-2. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
+1. **create-search** フォルダーで、**create-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、Azure AI 検索リソースの REST インターフェイスに JSON 定義を送信します。
+2. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure AI 検索リソースの **URL** と**管理キー**の 1 つに置き換えます。
 
-    *これらの値は、Azure portal の Azure Cognitive Search リソースの **[概要]** ページと **[キー]** ページにあります。*
+    *これらの値は、Azure portal の Azure AI 検索リソースの **[概要]** ページと **[キー]** ページにあります。*
 
 3. 更新したバッチファイルを保存します。
 4. **create-search** フォルダーを右クリックし、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。
@@ -133,7 +133,7 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
     create-search
     ```
 
-6. スクリプトが完了したら、Azure portal の Azure Cognitive Search リソースのページで、 **[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
+6. スクリプトが完了したら、Azure portal の Azure AI 検索リソース ページで、**[インデクサー]** ページを選択し、インデックス作成プロセスが完了するのを待ちます。
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
@@ -216,4 +216,4 @@ Margie's Travel スキルセットで定義されている "*オブジェクト*
 
 ## 詳細情報
 
-Azure Cognitive Search を使用したナレッジ ストアの作成の詳細については、[Azure Cognitive Search のドキュメント](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro)を参照してください。
+Azure AI 検索を使用したナレッジ ストアの作成の詳細については、「[Azure AI 検索のドキュメント](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro)」をご覧ください。
