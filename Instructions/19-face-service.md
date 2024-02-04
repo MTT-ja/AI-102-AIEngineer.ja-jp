@@ -6,9 +6,9 @@ lab:
 
 # 顔の検出と分析
 
-人間の顔を検出して分析する機能は、AI のコア機能です。 この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision** サービスと **Face** サービスについて説明します。
+人間の顔を検出して分析する機能は、AI のコア機能です。 この演習では、画像内の顔を操作するために使用できる 2 つの Azure AI サービスである **Azure AI Vision** サービスと **Face** サービスについて説明します。
 
-> **注**: 2022 年 6 月 21 日から、個人を特定できる情報を返すコグニティブ サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 さらに、感情的な状態を推測する機能は使用できなくなりました。 これらの制限は、このラボの演習に影響する可能性があります。 この問題に対処していますが、その間、次の手順に従うとエラーが発生する可能性があります。申し訳ございません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
+> **注**: 2022 年 6 月 21 日から、個人を特定できる情報を返す Azure AI サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 さらに、感情的な状態を推測する機能は使用できなくなりました。 これらの制限は、このラボの演習に影響する可能性があります。 この問題に対処していますが、その間、次の手順に従うとエラーが発生する可能性があります。申し訳ございません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
 
 ## このコースのリポジトリを複製する
 
@@ -21,29 +21,29 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## Cognitive Services リソースをプロビジョニングする
+## Azure AI サービス リソースをプロビジョニングする
 
-サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
+サブスクリプションにまだリソースがない場合は、**Azure AI サービス** リソースをプロビジョニングする必要があります。
 
-1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
-    - **[サブスクリプション]**: *ご自身の Azure サブスクリプション*
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* 
-    - **[リージョン]**: *使用できるリージョンを選択します*
+1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+2. 上部の検索バーで「*Azure AI サービス*」を検索し、**Azure AI サービス**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
+    - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
+    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
 5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
-## Computer Vision SDKを使用する準備をする
+## Azure AI Vision SDK を使用するための準備
 
-この演習では、Computer Vision SDK を使用して画像内の顔を分析する部分的に実装されたクライアント アプリケーションを完成させます。
+この演習では、Azure AI Vision SDK を使用して画像内の顔を分析する部分的に実装されたクライアント アプリケーションを完成させます。
 
-> **注**:**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
+> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**19-face** フォルダーを参照し、言語の設定に応じて **C#** または **Python** フォルダーを展開します。
-2. **computer-vision** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
+2. **computer-vision** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure AI Vision SDK パッケージをインストールします。
 
     **C#**
 
@@ -61,14 +61,14 @@ lab:
     - **C#** : appsettings.json
     - **Python**: .env
 
-4. 構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+4. 構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 
 5. **computer-vision** フォルダーに、クライアント アプリケーションの次のコード ファイルが含まれていることを確認してください。
 
     - **C#** : Program.cs
     - **Python**: detect-faces.py
 
-6. コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision SDK を使用するために必要な名前空間をインポートします。
 
     **C#**
 
@@ -89,21 +89,21 @@ lab:
 
 ## 分析する画像の確認
 
-この演習では、Computer Vision サービスを使用して、人の画像を分析します。
+この演習では、Azure AI Vision サービスを使用して、人の画像を分析します。
 
 1. Visual Studio Code で、**computer-vision** フォルダーとそれに含まれる **images** フォルダーを展開します。
 2. **people.jpg** 画像を選択して表示します。
 
 ## 画像内の顔を検出する
 
-これで、SDK を使用して Computer Vision サービスを呼び出し、画像内の顔を検出する準備が整いました。
+これで、SDK を使用して Vision サービスを呼び出し、画像内の顔を検出する準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、コメント「**Authenticate Computer Vision client**」を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることを確認してください。 次に、「**Authenticate Azure AI Vision client**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Azure AI Vision クライアント オブジェクトを作成および認証します。
 
     **C#**
 
     ```C#
-    // Authenticate Computer Vision client
+    // Authenticate Azure AI Vision client
     ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
     cvClient = new ComputerVisionClient(credentials)
     {
@@ -114,7 +114,7 @@ lab:
     **Python**
 
     ```Python
-    # Authenticate Computer Vision client
+    # Authenticate Azure AI Vision client
     credential = CognitiveServicesCredentials(cog_key) 
     cv_client = ComputerVisionClient(cog_endpoint, credential)
     ```
@@ -234,7 +234,7 @@ with open(image_file, mode="rb") as image_data:
 
 ## Face SDK を使用する準備をする
 
-**Computer Vision** サービスは (他の多くの画像分析機能とともに) 基本的な顔検出を提供しますが、**Face** サービスは顔の分析と認識のためのより包括的な機能を提供します。
+**Azure AI Vision** サービスは (他の多くの画像分析機能とともに) 基本的な顔検出を提供しますが、**Face** サービスは顔の分析と認識のためのより包括的な機能を提供します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**19-face** フォルダーを参照し、言語の設定に応じて **C#** または **Python** フォルダーを展開します。
 2. **face-api** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Face SDK パッケージをインストールします。
@@ -255,14 +255,14 @@ with open(image_file, mode="rb") as image_data:
     - **C#** : appsettings.json
     - **Python**: .env
 
-4. 構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+4. 構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 
 5. **face-api** フォルダーに、クライアント アプリケーションの次のコード ファイルが含まれていることを確認してください。
 
     - **C#** : Program.cs
     - **Python**: analyze-faces.py
 
-6. コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して Vision SDK を使用するために必要な名前空間をインポートします。
 
     **C#**
 
@@ -438,7 +438,7 @@ with open(image_file, mode="rb") as image_data:
         print('\nResults saved in', outputfile)
 ```
 
-4. **DetectFaces** 関数に追加したコードを調べます。 画像ファイルを分析し、年齢、感情、眼鏡の存在など、画像ファイルに含まれるすべての顔を検出します。 各顔に割り当てられた一意の顔識別子を含む、各顔の詳細が表示されます。顔の位置は、境界ボックスを使用して画像に示されます。
+4. **DetectFaces** 関数に追加したコードを調べます。 画像ファイルを分析し、オクルージョン、ぼかし、眼鏡の有無などの属性を含め、画像ファイルに含まれるすべての顔を検出します。 各顔に割り当てられた一意の顔識別子を含む、各顔の詳細が表示されます。顔の位置は、境界ボックスを使用して画像に示されます。
 5. 変更を保存して **face-api** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
     **C#**
@@ -460,8 +460,8 @@ with open(image_file, mode="rb") as image_data:
 
 ## 詳細情報
 
-**Face** サービスにはいくつかの追加機能がありますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔認識モデルの識別、検証、作成が含まれます。 詳細とアクセスの申請については、[Cognitive Services の制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)に関するページを参照してください。
+**Face** サービスにはいくつかの追加機能がありますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔認識モデルの識別、検証、作成が含まれます。 詳細とアクセスの申請については、「[Azure AI サービスの制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)」を参照してください。
 
-顔検出に **Computer Vision** サービスを使用する方法の詳細については、[Computer Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-detecting-faces)を参照してください。
+顔検出に **Azure AI Vision** サービスを使用する方法の詳細については、「[Azure AI Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-detecting-faces)」を参照してください。
 
 **Face** サービスの詳細については、[Face のドキュメント](https://docs.microsoft.com/azure/cognitive-services/face/)を参照してください。

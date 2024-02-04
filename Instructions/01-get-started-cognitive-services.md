@@ -1,12 +1,12 @@
 ---
 lab:
-  title: Cognitive Services の概要
-  module: Module 2 - Developing AI Apps with Cognitive Services
+  title: Azure AI サービスの使用を開始する
+  module: Module 2 - Developing AI Apps with Azure AI Services
 ---
 
-# Cognitive Services の概要
+# Azure AI サービスの使用を開始する
 
-この演習では、Azure サブスクリプションで **Cognitive Services** リソースを作成し、それをクライアント アプリケーションから使用して、Cognitive Services の使用を開始します。 この演習の目標は、特定のサービスに関する専門知識を習得することではなく、開発者として Cognitive Services をプロビジョニングおよび操作するための一般的なパターンに精通することです。
+この演習では、Azure サブスクリプションで **Azure AI サービス** リソースを作成し、そのリソースをクライアント アプリケーションから使用して、Azure AI サービスの使用を開始します。 この演習の目標は、特定のサービスに関する専門知識を習得することではなく、Azure AI サービスを開発者としてプロビジョニングおよび操作するための一般的なパターンに精通することです。
 
 ## このコースのリポジトリを複製する
 
@@ -19,12 +19,12 @@ lab:
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
 
-## Cognitive Services リソースをプロビジョニングする
+## Azure AI サービス リソースをプロビジョニングする
 
-Azure Cognitive Services は、アプリケーションに組み込むことができる人工知能機能をカプセル化するクラウドベースのサービスです。 特定の API (**言語**または **Computer Vision** など) に個別の **Cognitive Services** リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Cognitive Services API へのアクセスを提供する一般的な Cognitive Services リソースをプロビジョニングすることもできます。 この場合、単一の **Cognitive Services** リソースを使用します。
+Azure AI サービスは、アプリケーションに組み込むことができる人工知能機能をカプセル化したクラウドベースのサービスです。 特定の API (**Language** または **Vision** など) に個別の **Azure AI サービス** リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Azure AI サービス API へのアクセスを提供する単一の Azure AI サービス リソースをプロビジョニングすることもできます。 今回は、単一の **Azure AI サービス** リソースを使用します。
 
 1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. 上部の検索バーで「*Azure AI サービス*」を検索し、**Azure AI サービス**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
 
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
@@ -40,7 +40,7 @@ Azure Cognitive Services は、アプリケーションに組み込むことが�
 
 ## REST インターフェイスの使用
 
-Cognitive Services API は REST ベースであるため、HTTP 経由で JSON リクエストを送信することで API を利用できます。 この例では、**言語** REST API を使用して言語検出を実行するコンソール アプリケーションについて説明します。ただし、基本的な原則は、Cognitive Services リソースでサポートされているすべての API で同じです。
+Azure AI サービス API は REST ベースであるため、HTTP 経由で JSON 要求を送信することで API を利用できます。 この例では、**Language** REST API を使用して言語検出を実行するコンソール アプリケーションについて説明します。ただし、基本的な原則は、Azure AI サービス リソースでサポートされているすべての API で同じです。
 
 > **注**: この演習では、**C#** または **Python** のいずれかから REST API を使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
@@ -49,7 +49,7 @@ Cognitive Services API は REST ベースであるため、HTTP 経由で JSON �
     - **C#** : appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+    構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 3. **rest-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
@@ -57,8 +57,8 @@ Cognitive Services API は REST ベースであるため、HTTP 経由で JSON �
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - HTTP 通信を可能にするために、さまざまな名前空間がインポートされます
-    - **Main** 関数のコードは、Cognitive Services リソースのエンドポイントとキーを取得します。これらは、REST リクエストを Text Analytics サービスに送信するために使用されます。
-    - プログラムはユーザー入力を受け入れ、**GetLanguage** 関数を使用して、Cognitive Services エンドポイントの Text Analytics 言語検出 REST API を呼び出して、入力されたテキストの言語を検出します。
+    - **Main** 関数のコードは、Azure AI サービス リソースのエンドポイントとキーを取得します。これらは、REST 要求を Text Analytics サービスに送信するために使用されます。
+    - プログラムはユーザー入力を受け入れ、**GetLanguage** 関数を使用して、Azure AI サービス エンドポイントの Text Analytics 言語検出 REST API を呼び出して、入力されたテキストの言語を検出します。
     - API に送信される要求は、入力データを含む JSON オブジェクトで構成されます。この場合、**ドキュメント** オブジェクトのコレクションであり、それぞれに **ID** と**テキスト**があります。
     - サービスのキーは、クライアント アプリケーションを認証するためのリクエスト ヘッダーに含まれています。
     - サービスからの応答は JSON オブジェクトであり、クライアント アプリケーションはこれを解析できます。
@@ -81,7 +81,7 @@ Cognitive Services API は REST ベースであるため、HTTP 経由で JSON �
 
 ## SDK を使用する
 
-Cognitive Services のREST API を直接使用するコードを記述できますが、Microsoft C#、Python、Node.js など、多くの一般的なプログラミング言語用のソフトウェア開発キット (SDK) があります。 SDK を使用すると、Cognitive Services を使用するアプリケーションの開発を大幅に簡素化できます。
+Azure AI サービスの REST API を直接使用するコードを記述することもできますが、Microsoft C#、Python、Node.js など、多くの一般的なプログラミング言語用のソフトウェア開発キット (SDK) を利用できます。 SDK を使用すると、Azure AI サービスを使用するアプリケーションの開発を大幅に簡素化できます。
 
 1. Visual Studio Code の **[エクスプローラー]** ウィンドウの **01-getting-started** フォルダーで、言語の設定に応じて **C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
 2. **sdk-client** フォルダーを右クリックして、統合ターミナルを開きます(Open in Integrated Terminal)。 次に、言語設定に適合するコマンドを実行して、Text Analytics SDK パッケージをインストールします。
@@ -89,7 +89,7 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
     **C#**
 
     ```
-    dotnet add package Azure.AI.TextAnalytics --version 5.1.0
+    dotnet add package Azure.AI.TextAnalytics --version 5.3.0
     ```
 
     **Python**
@@ -102,7 +102,7 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
     - **C#** : appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
+    構成ファイルを開き、構成値を更新して、Azure AI サービス リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
     
 4. **sdk-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
@@ -111,7 +111,7 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールした SDK の名前空間がインポートされます
-    - **Main** 関数のコードは、Cognitive Services リソースのエンドポイントとキーを取得します。これらは SDK で使用され、Text Analytics サービスのクライアントを作成します。
+    - **Main** 関数のコードは、Azure AI サービス リソースのエンドポイントとキーを取得します。これらは SDK で使用され、Text Analytics サービスのクライアントを作成します。
     - **GetLanguage** 関数は、SDK を使用してサービスのクライアントを作成し、クライアントを使用して入力されたテキストの言語を検出します。
 5. **sdk-client** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
@@ -134,4 +134,4 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
 
 ## 詳細情報
 
-Azure Cognitive Services の詳細については、[Cognitive Services](https://docs.microsoft.com/azure/cognitive-services/what-are-cognitive-services) のドキュメントを参照してください。
+Azure AI サービスの詳細については、[Azure AI サービスのドキュメント](https://docs.microsoft.com/azure/cognitive-services/what-are-cognitive-services)を参照してください。
