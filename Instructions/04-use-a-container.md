@@ -28,10 +28,10 @@ Azure AI サービス API の多くは、*コンテナー*にパッケージ化�
 サブスクリプションにまだリソースがない場合は、**Azure AI サービス** リソースをプロビジョニングする必要があります。
 
 1. Azure portal (`https://portal.azure.com/?l=ja.ja-jp`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. 上部の検索バーで「*Azure AI サービス*」を検索し、**Azure AI サービス**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
+2. 上部の検索バーで「*Azure AI*」を検索し、**Azure AI services multi-service account**を選択し、次の設定で Azure AI サービスのマルチサービス アカウント リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
-    - **[リージョン]**: 使用できるリージョンを選択します**
+    - **[リージョン]**: 使用できるリージョンを選択します
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
@@ -40,9 +40,9 @@ Azure AI サービス API の多くは、*コンテナー*にパッケージ化�
 
 ## Text Analytics コンテナーをデプロイして実行する
 
-一般的に使用される多くの Azure AI サービス API は、コンテナー イメージで利用できます。 完全なリストについては、「[Azure AI サービスのドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)」を確認してください。 この演習では、Text Analytics "*言語検出*" API のコンテナー イメージを使用します。ただし、原則は利用可能なすべての画像で同じです。
+一般的に使用される多くの Azure AI サービス API は、コンテナー イメージで利用できます。 完全なリストについては、「[Azure AI サービスのドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)」を確認してください。 この演習では、Text Analytics "*言語検出*" API のコンテナー イメージを使用します。ただし、原則は利用可能なすべてのイメージで同じです。
 
-1. Azure portal の **ホーム** ページで、 **[&#65291;リソースの作成]** ボタンを選択し、*Container Instances* を検索して、次の設定で **Container Instances** リソースを作成します。
+1. Azure portal の **ホーム** ページで、 **[&#65291;リソースの作成]** ボタンを選択し、*コンテナ* を検索して、次の設定で **コンテナーインスタンス** リソースを作成します。
 
     - **[基本]** :
         - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
