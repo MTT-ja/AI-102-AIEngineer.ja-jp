@@ -1,14 +1,14 @@
 ---
 lab:
   title: Video Analyzer を使用する動画の分析
-  module: Module 8 - Getting Started with Computer Vision
+  module: Module 8 - Getting Started with Azure AI Vision
 ---
 
 # Video Analyzer を使用する動画の分析
 
-今日作成および消費されているデータの大部分は動画形式です。 **Video Analyzer for Media** は、AI を利用したサービスであり、動画のインデックスを作成し、そこからインサイトを抽出するために使用できます。
+今日作成および消費されているデータの大部分は動画形式です。 **Azure AI Video Indexer** は、AI を利用したサービスであり、動画のインデックスを作成し、動画からインサイトを抽出するために使用できます。
 
-> **注**:2022 年 6 月 21 日から、個人を特定できる情報を返すコグニティブ サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 制限付きアクセスの承認を得ていない場合、このラボの Video Analyzer を使用して人や著名人を認識することはできません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
+> **注**: 2022 年 6 月 21 日から、個人を特定できる情報を返す Azure AI サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 制限付きアクセスの承認を得ていない場合、このラボの Video Analyzer を使用して人や著名人を認識することはできません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
 
 ## このコースのリポジトリを複製する
 
@@ -123,6 +123,6 @@ Video Analyzer REST API とのすべての対話は、同じパターンに従�
 
 ## 詳細情報
 
-人や著名人の認識は引き続き利用できますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔の識別と有名人の認識が含まれます。 詳細とアクセスの申請については、[Cognitive Services の制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)に関するページを参照してください。
+人や著名人の認識は引き続き利用できますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔の識別と有名人の認識が含まれます。 詳細とアクセスの申請については、「[Azure AI サービスの制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)」を参照してください。
 
 **Video Analyzer** の詳細については、[Video Analyzer のドキュメント](https://docs.microsoft.com/azure/azure-video-analyzer/video-analyzer-for-media-docs/)を参照してください。
